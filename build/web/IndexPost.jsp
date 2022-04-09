@@ -52,12 +52,12 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-<!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>-->
+            <!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>-->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -252,7 +252,9 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <% Long temp = 0L; %>
                                         <% for (Post p : dao.getAllPost()) {%>
+                                        <% temp = p.getPostId(); %>
                                         <tr>
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getPostTitle()%></td>
                                             <td class="text-center" style="vertical-align: middle"><img src="assets/images/<%=p.getThumbnail()%>" width="100" height="100"/></td>
@@ -262,15 +264,15 @@
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getUpdatedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getPublishedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <a  href="EditPost.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>                                              
-                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block'" > <i class="fa fa-trash"></i></a>
+                                                <a  href="EditPost.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-warning"><i class="fa fa-pen" data-toggle="tooltip" title="Sửa"></i></a>                                              
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block'" > <i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
+
                                             </td>
                                         </tr>
                                         <% }%>
                                     </tbody>
 
                                 </table>
-
                                 <style>
                                     /* Set a style for all buttons */
                                     button {
@@ -371,24 +373,25 @@
                                             <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
 
                                             <div class="clearfix">
-                                                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn"><i class="fa fa-times bold"></i> Cancel</button>
-                                                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn"><i class="fa fa-trash bold"></i> Delete</button>
+                                                <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
+                                                <a href="DeletePost?pid=<%=temp %>" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
                                 <script>
-// Get the modal
+                                    // Get the modal
                                     var modal = document.getElementById('id01');
 
-// When the user clicks anywhere outside of the modal, close it
+                                    // When the user clicks anywhere outside of the modal, close it
                                     window.onclick = function (event) {
                                         if (event.target == modal) {
                                             modal.style.display = "none";
                                         }
                                     }
                                 </script>
+
                             </div>
                         </div>
                     </div>
