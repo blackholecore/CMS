@@ -231,7 +231,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr >
-
+                                            <th class="text-center" style="vertical-align: middle">Id</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>                                           
                                             <th class="text-center" style="vertical-align: middle">Ảnh bìa</th>
                                             <th class="text-center" style="vertical-align: middle">Nội dung</th>
@@ -242,7 +242,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-
+                                            <th class="text-center" style="vertical-align: middle">Id</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>                                           
                                             <th class="text-center" style="vertical-align: middle">Ảnh bìa</th>
                                             <th class="text-center" style="vertical-align: middle">Nội dung</th>
@@ -254,8 +254,9 @@
                                     <tbody>
                                         <% Long temp = 0L; %>
                                         <% for (Post p : dao.getAllPost()) {%>
-                                        <% temp = p.getPostId(); %>
+                                        <% temp = p.getPostId();%>
                                         <tr>
+                                            <td name="ID" class="text-center" style="vertical-align: middle"><%=p.getPostId()%></td>
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getPostTitle()%></td>
                                             <td class="text-center" style="vertical-align: middle"><img src="assets/images/<%=p.getThumbnail()%>" width="100" height="100"/></td>
                                             <td class="text-center" style="vertical-align: middle">
@@ -265,11 +266,12 @@
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getPublishedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a  href="EditPost.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-warning"><i class="fa fa-pen" data-toggle="tooltip" title="Sửa"></i></a>                                              
-                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block'" > <i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
-
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeletePost?pid=<%=p.getPostId()%>';" > <i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
                                             </td>
                                         </tr>
+
                                         <% }%>
+
                                     </tbody>
 
                                 </table>
@@ -374,12 +376,11 @@
 
                                             <div class="clearfix">
                                                 <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
-                                                <a href="DeletePost?pid=<%=temp %>" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
+                                                <a id="xoa" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-
                                 <script>
                                     // Get the modal
                                     var modal = document.getElementById('id01');
@@ -389,7 +390,9 @@
                                         if (event.target == modal) {
                                             modal.style.display = "none";
                                         }
-                                    }
+                                    };
+
+
                                 </script>
 
                             </div>
