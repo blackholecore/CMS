@@ -5,6 +5,7 @@
  */
 package crudcategory;
 
+import dao.PostDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,14 +47,31 @@ public class CreateCategory extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+//        HttpSession session = request.getSession();
+//        User a = (User) session.getAttribute("acc");
+//        if (a != null) {
+//            Long id = a.getUserId();
+//            response.sendRedirect("CreateCategory.jsp");
+//        } else {
+//            request.setAttribute("mess", "Bạn chưa đăng nhập để vào trang này!");
+//            request.getRequestDispatcher("Login.jsp").forward(request, response);
+//        }
+        String category_title = request.getParameter("category_title");
+        String slug = request.getParameter("slug");
+        String icon = request.getParameter("icon");
+
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("acc");
         if (a != null) {
-            Long id = a.getUserId();
-            response.sendRedirect("CreateCategory.jsp");
+            //CHÈN NẾU ĐĂNG NHẬP
+            PostDAO dao = new PostDAO();
+            dao.insertCategory(category_title, slug, icon);
+            //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
+            response.sendRedirect("IndexCategory.jsp");
         } else {
-            request.setAttribute("mess", "Bạn chưa đăng nhập để vào trang này!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            //day ve trang login.jsp
+            request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");
+            response.sendRedirect("Login.jsp");
         }
     }
 

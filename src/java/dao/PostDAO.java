@@ -574,13 +574,12 @@ public class PostDAO {
     }
 
     //START CRUD Post
-    public void deletePost(String post_id) {
-        String query = "delete from product\n"
-                + "where post_id = ?";
+    public void deletePost(Long post_id) {
+        String query = "DELETE FROM `post` WHERE `post`.`post_id` = " + post_id.intValue();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, post_id);
+            //ps.setLong(1, post_id);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -631,12 +630,11 @@ public class PostDAO {
     //END CRUD Post
     // START CRUD Category
     public void deleteCategory(Long category_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "DELETE FROM 'category` WHERE `category`.`category_id` = " + category_id.intValue();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setLong(1, category_id);
+            //ps.setLong(1, category_id);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -672,8 +670,8 @@ public class PostDAO {
 
     // START CRUD Tag
     public void deleteTag(Long tag_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "delete from tag\n"
+                + "where tag_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -739,6 +737,9 @@ public class PostDAO {
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
+        String pid = "36";
+        dao.deletePost(Long.parseLong(pid));
+        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());
 //        List<Post> listCC = dao.getAllPost();
 //        for(Post c: listCC){
 //            System.out.println(c.getPostTitle());
@@ -761,9 +762,9 @@ public class PostDAO {
 //        }
         //dao.insertPost("Win 11", "win-11", "win-11.jpg","Đang viết", Date.from(Instant.now()), true, Date.from(Instant.now()), "Test Demo", 2L, 0, 6L);
         //System.out.println(dao.getPostByID(32L).get(0).getPostTitle());
-        for(PostComment item : dao.getAllComment()){
-            System.out.println(item.getCommentTitle());
-        }
+//        for(PostComment item : dao.getAllComment()){
+//            System.out.println(item.getCommentTitle());
+//        }
 //        System.out.println(Boolean.parseBoolean("True"));
     }
 }

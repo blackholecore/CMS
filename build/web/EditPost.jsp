@@ -276,7 +276,7 @@
                                 </div>
                             </div>-->
                             <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="Tạo">
+                                <input type="submit" class="btn btn-primary" value="Lưu">
                             </div>
                         </form>
 
