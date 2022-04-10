@@ -630,12 +630,11 @@ public class PostDAO {
     //END CRUD Post
     // START CRUD Category
     public void deleteCategory(Long category_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "DELETE FROM 'category` WHERE `category`.`category_id` = " + category_id.intValue();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setLong(1, category_id);
+            //ps.setLong(1, category_id);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -671,8 +670,8 @@ public class PostDAO {
 
     // START CRUD Tag
     public void deleteTag(Long tag_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "delete from tag\n"
+                + "where tag_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);

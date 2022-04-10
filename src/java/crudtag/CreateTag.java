@@ -5,9 +5,11 @@
  */
 package crudtag;
 
+import dao.PostDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,14 +48,31 @@ public class CreateTag extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+//        HttpSession session = request.getSession();
+//        User a = (User) session.getAttribute("acc");
+//        if (a != null) {
+//            Long id = a.getUserId();
+//            response.sendRedirect("CreateTag.jsp");
+//        } else {
+//            request.setAttribute("mess", "Bạn chưa đăng nhập để vào trang này!");
+//            request.getRequestDispatcher("Login.jsp").forward(request, response);
+//        }
+
+        String tag_title = request.getParameter("tag_title");        
+        String post_id = request.getParameter("post_id");
+
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("acc");
         if (a != null) {
-            Long id = a.getUserId();
-            response.sendRedirect("CreateTag.jsp");
+            //CHÈN NẾU ĐĂNG NHẬP
+            PostDAO dao = new PostDAO();
+            dao.insertTag(tag_title,Long.parseLong(post_id));
+            //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
+            response.sendRedirect("IndexTag.jsp");
         } else {
-            request.setAttribute("mess", "Bạn chưa đăng nhập để vào trang này!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            //day ve trang login.jsp
+            request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");
+            response.sendRedirect("Login.jsp");
         }
     }
 
