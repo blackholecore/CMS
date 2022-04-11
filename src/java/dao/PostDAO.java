@@ -312,12 +312,11 @@ public class PostDAO {
     //ok
     public List<Post> searchPostByName(String txtSearch) {
         List<Post> list = new ArrayList<>();
-        String query = "select * from product\n"
-                + "where post_title like ?";
+        String query = "select * from post WHERE post_title like '%"+ txtSearch +"%'";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + txtSearch + "%");
+            //ps.setString(1, "%" + txtSearch + "%");
             rs = ps.executeQuery();
             while (rs.next()) {// L S S S D B D S
                 list.add(new Post(
@@ -325,10 +324,10 @@ public class PostDAO {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getDate(5),
-                        rs.getBoolean(6),
-                        rs.getDate(7),
-                        rs.getString(8)
+                        rs.getDate(6),
+                        rs.getBoolean(7),
+                        rs.getDate(8),
+                        rs.getString(9)
                 ));
             }
         } catch (Exception e) {
@@ -738,9 +737,16 @@ public class PostDAO {
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
-        String pid = "36";
-        dao.deletePost(Long.parseLong(pid));
-        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());
+        String txtSearch = "Windows";
+        List<Post> list = dao.searchPostByName(txtSearch);
+        if(list != null){
+            for(Post p : list){
+                System.out.println(p.getPostTitle());
+            }
+        }
+//        String pid = "36";
+//        dao.deletePost(Long.parseLong(pid));
+//        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());
 //        List<Post> listCC = dao.getAllPost();
 //        for(Post c: listCC){
 //            System.out.println(c.getPostTitle());
