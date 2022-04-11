@@ -59,6 +59,12 @@
                 p.setUpdatedAt(post.get(0).getUpdatedAt());
                 p.setThumbnail(post.get(0).getThumbnail());
                 p.setContent(post.get(0).getContent());
+                p.setSlug(post.get(0).getSlug());
+                p.setSummary(post.get(0).getSummary());
+                p.setPublished(post.get(0).getPublished());
+                p.setViewcount(post.get(0).getViewcount());
+                p.setCategoryId(post.get(0).getCategoryId());
+                p.setUserId(post.get(0).getUserId());
             }
         %>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -205,10 +211,13 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tin tức</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Tạo bài viết mới</li>
+                            <li class="breadcrumb-item active">Sửa bài viết</li>
                         </ol>
 
-                        <form action="CreatePost" method="POST" class="row g-3">
+                        <form action="EditPost" method="POST" class="row g-3">
+                            <div class="col-md-12">
+                                <input type="hidden" name="post_id" for="inputEmail4" class="form-label" value="<%=post.get(0).getPostId() %>" >
+                            </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tiêu đề</label>
                                 <input type="text" class="form-control" name="post_title" value="<%= p.getPostTitle() %>">
@@ -276,7 +285,7 @@
                                 </div>
                             </div>-->
                             <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="Lưu">
+                                <input type="submit" class="btn btn-primary" value="Cập nhật">
                             </div>
                         </form>
 
