@@ -196,7 +196,7 @@
                         <form action="CreatePost" method="POST" class="row g-3">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tiêu đề</label>
-                                <input type="text" class="form-control" name="post_title">
+                                <input type="text" class="form-control" name="post_title" required="Mời bạn nhập tiêu đề!">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputPassword4" class="form-label">Slug</label>
@@ -204,7 +204,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Hình ảnh</label>
-                                <input type="file" class="form-control" name="thumbnail">
+                                <input type="file" class="form-control" name="thumbnail" required="Mời bạn thêm hình ảnh">
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Tóm tắt</label>
