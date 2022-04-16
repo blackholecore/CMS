@@ -312,12 +312,11 @@ public class PostDAO {
     //ok
     public List<Post> searchPostByName(String txtSearch) {
         List<Post> list = new ArrayList<>();
-        String query = "select * from product\n"
-                + "where post_title like ?";
+        String query = "select * from post WHERE post_title like '%"+ txtSearch +"%'";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + txtSearch + "%");
+            //ps.setString(1, "%" + txtSearch + "%");
             rs = ps.executeQuery();
             while (rs.next()) {// L S S S D B D S
                 list.add(new Post(
@@ -325,10 +324,10 @@ public class PostDAO {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getDate(5),
-                        rs.getBoolean(6),
-                        rs.getDate(7),
-                        rs.getString(8)
+                        rs.getDate(6),
+                        rs.getBoolean(7),
+                        rs.getDate(8),
+                        rs.getString(9)
                 ));
             }
         } catch (Exception e) {
@@ -606,7 +605,7 @@ public class PostDAO {
         }
     }
 
-    public void editPost(Long postId, String postTitle, String slug, String thumbnail, Date updatedAt, boolean published, Date publishedAt, String content, Long user_id, int viewcount, Long category_id) {
+    public void editPost(Long postId, String postTitle, String slug, String thumbnail, String summamry, Date updatedAt, boolean published, Date publishedAt, String content, Long user_id, int viewcount, Long category_id) {
         String query = "UPDATE `post` SET `post_title`=?,`slug`=?,`thumbnail`=?,`summary`=?,`updatedAt`=?,`published`=?,`publishedAt`=?,`content`=?,`user_id`=?,`viewcount`=?,`category_id`=? WHERE post_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
@@ -614,14 +613,15 @@ public class PostDAO {
             ps.setString(1, postTitle);
             ps.setString(2, slug);
             ps.setString(3, thumbnail);
-            ps.setDate(4,  updatedAt);
-            ps.setBoolean(5, published);
-            ps.setDate(6, publishedAt);
-            ps.setLong(7, user_id);
-            ps.setInt(8, viewcount);
-            ps.setLong(9, category_id);
-            ps.setLong(10, user_id);
-            ps.setLong(11, postId);
+            ps.setString(4, thumbnail);
+            ps.setDate(5,  updatedAt);
+            ps.setBoolean(6, published);
+            ps.setDate(7, publishedAt);
+            ps.setLong(8, user_id);
+            ps.setInt(9, viewcount);
+            ps.setLong(10, category_id);
+            ps.setLong(11, user_id);
+            ps.setLong(12, postId);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -723,7 +723,7 @@ public class PostDAO {
     // END CRUD PostComment
     // START CRUD User
     public void deleteUser(Long user_id) {
-        String query = "delete from category\n"
+        String query = "delete from user\n"
                 + "where post_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
@@ -737,9 +737,16 @@ public class PostDAO {
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
-        String pid = "36";
-        dao.deletePost(Long.parseLong(pid));
-        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());
+        String txtSearch = "Windows";
+        List<Post> list = dao.searchPostByName(txtSearch);
+        if(list != null){
+            for(Post p : list){
+                System.out.println(p.getPostTitle());
+            }
+        }
+//        String pid = "36";
+//        dao.deletePost(Long.parseLong(pid));
+//        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());
 //        List<Post> listCC = dao.getAllPost();
 //        for(Post c: listCC){
 //            System.out.println(c.getPostTitle());

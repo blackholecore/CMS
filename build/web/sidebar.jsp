@@ -23,8 +23,8 @@
                 <div class="sidebar-widget mb-40">
                     <h4 class="sidebar-widget-title">Tìm kiếm </h4>
                     <div class="sidebar-search">
-                        <form class="sidebar-search-form" action="#">
-                            <input type="text" placeholder="Tìm kiếm...">
+                        <form class="sidebar-search-form" action="Search.jsp" method="GET">
+                            <input name="txtSearch" type="text" placeholder="Tìm kiếm...">
                             <button>
                                 <i class="icon-magnifier"></i>
                             </button>

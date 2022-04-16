@@ -36,6 +36,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
     </head>
     <body class="sb-nav-fixed">
         <%
@@ -59,6 +60,12 @@
                 p.setUpdatedAt(post.get(0).getUpdatedAt());
                 p.setThumbnail(post.get(0).getThumbnail());
                 p.setContent(post.get(0).getContent());
+                p.setSlug(post.get(0).getSlug());
+                p.setSummary(post.get(0).getSummary());
+                p.setPublished(post.get(0).getPublished());
+                p.setViewcount(post.get(0).getViewcount());
+                p.setCategoryId(post.get(0).getCategoryId());
+                p.setUserId(post.get(0).getUserId());
             }
         %>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -105,8 +112,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexPost">Danh sách bài viết</a>
-                                    <a class="nav-link" href="CreatePost">Thêm bài viết</a>
+                                    <a class="nav-link" href="IndexPost.jsp">Danh sách bài viết</a>
+                                    <a class="nav-link" href="CreatePost.jsp">Thêm bài viết</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -116,8 +123,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexTag">Danh sách tag</a>
-                                    <a class="nav-link" href="CreateTag">Thêm tag bài viết</a>
+                                    <a class="nav-link" href="IndexTag.jsp">Danh sách tag</a>
+                                    <a class="nav-link" href="CreateTag.jsp">Thêm tag bài viết</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -127,8 +134,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexCategory">Danh sách chuyên mục</a>
-                                    <a class="nav-link" href="CreateCategory">Thêm chuyên mục</a>
+                                    <a class="nav-link" href="IndexCategory.jsp">Danh sách chuyên mục</a>
+                                    <a class="nav-link" href="CreateCategory.jsp">Thêm chuyên mục</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -138,8 +145,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexComment">Danh sách comment</a>
-                                    <a class="nav-link" href="CreateComment">Thêm comment bài viết</a>
+                                    <a class="nav-link" href="IndexComment.jsp">Danh sách comment</a>
+                                    <a class="nav-link" href="CreateComment.jsp">Thêm comment bài viết</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -149,8 +156,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexAdvertisement">Danh sách quảng cáo</a>
-                                    <a class="nav-link" href="CreateAdvertisement">Thêm quảng cáo</a>
+                                    <a class="nav-link" href="IndexAdvertisement.jsp">Danh sách quảng cáo</a>
+                                    <a class="nav-link" href="CreateAdvertisement.jsp">Thêm quảng cáo</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -166,8 +173,8 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="IndexUser">Danh sách tài khoản</a>
-                                            <a class="nav-link" href="CreateUser">Thêm tài khoản</a>
+                                            <a class="nav-link" href="IndexUser.jsp">Danh sách tài khoản</a>
+                                            <a class="nav-link" href="CreateUser.jsp">Thêm tài khoản</a>
                                         </nav>
                                     </div>
                                     <!--                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -202,13 +209,16 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4" style="max-width: 750px;">
                         <h1 class="mt-4">Tin tức</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Tạo bài viết mới</li>
+                            <li class="breadcrumb-item active">Sửa bài viết</li>
                         </ol>
 
-                        <form action="CreatePost" method="POST" class="row g-3">
+                        <form action="EditPost" method="POST" class="row g-3">
+                            <div class="col-md-12">
+                                <input type="hidden" name="post_id" for="inputEmail4" class="form-label" value="<%=post.get(0).getPostId() %>" >
+                            </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tiêu đề</label>
                                 <input type="text" class="form-control" name="post_title" value="<%= p.getPostTitle() %>">
@@ -227,7 +237,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Nội dung</label>
-                                <input type="text" class="form-control" name="content" placeholder="" value="<%= p.getContent() %>">
+                                <textarea class="form-control" id="content" name="content" placeholder=""><%= p.getContent() %></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCity" class="form-label">Ngày cập nhật</label>
@@ -236,9 +246,9 @@
                             <div class="col-md-6">
                                 <label for="inputState" class="form-label">Trạng thái Xuất bản</label>
                                 <select name="published" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>True</option>
-                                    <option>False</option>
+<!--                                    <option selected>Choose...</option>-->
+                                    <option value="True">Xuất bản</option>
+                                    <option value="False">Lưu nháp</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -254,7 +264,7 @@
                                 <select name="user_id" class="form-select">
                                     <option selected><%=p.getUserId() %></option>
                                     <% for (User c : dao.getAllUser()) {%>                                 
-                                        <option><%=c.getUserId() %></option>
+                                    <option value="<%=c.getUserId()%>"><%=c.getFullname() %></option>
                                     <% } %>
                                 </select>
                             </div>
@@ -263,7 +273,7 @@
                                 <select name="category_id" class="form-select">
                                     <option selected><%=p.getCategoryId() %></option>
                                     <% for (Category c : dao.getAllCategory()) {%>                                 
-                                        <option><%=c.getCategoryId() %></option>
+                                    <option value="<%=c.getCategoryId() %>"><%=c.getCatTitle() %></option>
                                     <% } %>
                                 </select>
                             </div>
@@ -276,7 +286,7 @@
                                 </div>
                             </div>-->
                             <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="Lưu">
+                                <input type="submit" class="btn btn-primary" value="Cập nhật">
                             </div>
                         </form>
 
@@ -303,6 +313,9 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script>
+            var editor = CKEDITOR.replace('content');
+        </script>
     </body>
 </html>
 

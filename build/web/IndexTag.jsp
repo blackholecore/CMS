@@ -387,8 +387,8 @@
                                     <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
                                     <form class="modal-content" action="/action_page.php">
                                         <div class="container">
-                                            <h1>Xóa bài viết</h1>
-                                            <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
+                                            <h1>Xóa thẻ bài viết</h1>
+                                            <p>Bạn có chắc chắn muốn xóa Tag bài viết này?</p>
 
                                             <div class="clearfix">
                                                 <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
