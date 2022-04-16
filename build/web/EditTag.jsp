@@ -200,7 +200,7 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4" style="max-width: 750px">
                         <h1 class="mt-4">Thẻ bài viết</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Sửa thẻ bài viết</li>
@@ -215,7 +215,7 @@
                             <div class="col-md-2">
                                 <label for="inputCity" class="form-label">Bài viết </label>
                                 <select name="post_id" class="form-select">
-                                    <option selected>Chọn bài viết</option>
+                                    <option selected>Chọn</option>
                                     <% for (Post t : dao.getAllPost()) {%>                                 
                                     <option value="<%=t.getPostId() %>"><%=t.getPostTitle() %></option>
                                     <% } %>
@@ -230,7 +230,7 @@
                                 </div>
                             </div>-->
                             <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="Tạo">
+                                <input type="submit" class="btn btn-primary" value="Sửa">
                             </div>
                         </form>
 

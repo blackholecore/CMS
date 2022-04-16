@@ -284,8 +284,8 @@
                                             <td class="text-center" style="vertical-align: middle"><%=p.getSlug()%></td>
                                             <td class="text-center" style="vertical-align: middle"><img src="assets/images/<%=p.getIcon() %>" width="100" height="100"/></td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <a  href="" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
-                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                                <a  href="EditCategory.jsp?category=<%=p.getCategoryId()%>" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
+<!--                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>-->
                                                 <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteCategory?cid=<%=p.getCategoryId()%>';"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

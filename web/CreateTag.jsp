@@ -187,7 +187,7 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4" style="max-width: 750px">
                         <h1 class="mt-4">Thẻ bài viết</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Tạo thẻ bài viết</li>
@@ -202,7 +202,7 @@
                             <div class="col-md-2">
                                 <label for="inputCity" class="form-label">Bài viết </label>
                                 <select name="post_id" class="form-select">
-                                    <option selected>Chọn bài viết</option>
+                                    <option selected>Chọn</option>
                                     <% for (Post p : dao.getAllPost()) {%>                                 
                                     <option value="<%=p.getPostId() %>"><%=p.getPostTitle() %></option>
                                     <% } %>
