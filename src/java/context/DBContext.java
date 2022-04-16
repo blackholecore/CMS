@@ -22,7 +22,7 @@ public class DBContext {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             cons = (Connection) DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/weblog?useUnicode=yes&characterEncoding=UTF-8", "Weblog", "123");
+                    "jdbc:mysql://localhost:3306/weblog?useUnicode=true&characterEncoding=utf-8", "Weblog", "123");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

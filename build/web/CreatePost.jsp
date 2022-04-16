@@ -212,7 +212,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Nội dung</label>
-                                <input type="text" class="form-control" name="content" placeholder="Nội dung bài viết ...">
+                                <textarea rows="15" cols="100" class="form-control" name="content" placeholder="Nội dung bài viết ..."></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCity" class="form-label">Ngày cập nhật</label>

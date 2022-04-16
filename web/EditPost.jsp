@@ -111,8 +111,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexPost">Danh sách bài viết</a>
-                                    <a class="nav-link" href="CreatePost">Thêm bài viết</a>
+                                    <a class="nav-link" href="IndexPost.jsp">Danh sách bài viết</a>
+                                    <a class="nav-link" href="CreatePost.jsp">Thêm bài viết</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -122,8 +122,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexTag">Danh sách tag</a>
-                                    <a class="nav-link" href="CreateTag">Thêm tag bài viết</a>
+                                    <a class="nav-link" href="IndexTag.jsp">Danh sách tag</a>
+                                    <a class="nav-link" href="CreateTag.jsp">Thêm tag bài viết</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -133,8 +133,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexCategory">Danh sách chuyên mục</a>
-                                    <a class="nav-link" href="CreateCategory">Thêm chuyên mục</a>
+                                    <a class="nav-link" href="IndexCategory.jsp">Danh sách chuyên mục</a>
+                                    <a class="nav-link" href="CreateCategory.jsp">Thêm chuyên mục</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -144,8 +144,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexComment">Danh sách comment</a>
-                                    <a class="nav-link" href="CreateComment">Thêm comment bài viết</a>
+                                    <a class="nav-link" href="IndexComment.jsp">Danh sách comment</a>
+                                    <a class="nav-link" href="CreateComment.jsp">Thêm comment bài viết</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -155,8 +155,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="IndexAdvertisement">Danh sách quảng cáo</a>
-                                    <a class="nav-link" href="CreateAdvertisement">Thêm quảng cáo</a>
+                                    <a class="nav-link" href="IndexAdvertisement.jsp">Danh sách quảng cáo</a>
+                                    <a class="nav-link" href="CreateAdvertisement.jsp">Thêm quảng cáo</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -172,8 +172,8 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="IndexUser">Danh sách tài khoản</a>
-                                            <a class="nav-link" href="CreateUser">Thêm tài khoản</a>
+                                            <a class="nav-link" href="IndexUser.jsp">Danh sách tài khoản</a>
+                                            <a class="nav-link" href="CreateUser.jsp">Thêm tài khoản</a>
                                         </nav>
                                     </div>
                                     <!--                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -245,9 +245,9 @@
                             <div class="col-md-6">
                                 <label for="inputState" class="form-label">Trạng thái Xuất bản</label>
                                 <select name="published" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>True</option>
-                                    <option>False</option>
+<!--                                    <option selected>Choose...</option>-->
+                                    <option value="True">Xuất bản</option>
+                                    <option value="False">Lưu nháp</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -263,7 +263,7 @@
                                 <select name="user_id" class="form-select">
                                     <option selected><%=p.getUserId() %></option>
                                     <% for (User c : dao.getAllUser()) {%>                                 
-                                        <option><%=c.getUserId() %></option>
+                                    <option value="<%=c.getUserId()%>"><%=c.getFullname() %></option>
                                     <% } %>
                                 </select>
                             </div>
@@ -272,7 +272,7 @@
                                 <select name="category_id" class="form-select">
                                     <option selected><%=p.getCategoryId() %></option>
                                     <% for (Category c : dao.getAllCategory()) {%>                                 
-                                        <option><%=c.getCategoryId() %></option>
+                                    <option value="<%=c.getCategoryId() %>"><%=c.getCatTitle() %></option>
                                     <% } %>
                                 </select>
                             </div>
