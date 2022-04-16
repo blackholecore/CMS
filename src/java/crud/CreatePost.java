@@ -42,6 +42,8 @@ public class CreatePost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -60,10 +62,10 @@ public class CreatePost extends HttpServlet {
         String summary = request.getParameter("summary");
         String content = request.getParameter("content");
         String updatedAt = request.getParameter("updatedAt");
-        Date UpdatedDate =  Date.valueOf(updatedAt);
+        Date UpdatedDate = Date.valueOf(updatedAt);
         String published = request.getParameter("published");
         String publishedAt = request.getParameter("publishedAt");
-        Date PublishedDate =  Date.valueOf(publishedAt);
+        Date PublishedDate = Date.valueOf(publishedAt);
         String viewcount = request.getParameter("viewcount");
         String category_id = request.getParameter("category_id");
         String user_id = request.getParameter("user_id");
@@ -73,7 +75,7 @@ public class CreatePost extends HttpServlet {
         if (a != null) {
             //CHÈN NẾU ĐĂNG NHẬP
             PostDAO dao = new PostDAO();
-            dao.insertPost(post_title, slug, thumbnail, summary, UpdatedDate , Boolean.parseBoolean(published), PublishedDate , content, Long.parseLong(user_id), Integer.parseInt(viewcount), Long.parseLong(category_id));
+            dao.insertPost(post_title, slug, thumbnail, summary, UpdatedDate, Boolean.parseBoolean(published), PublishedDate, content, Long.parseLong(user_id), Integer.parseInt(viewcount), Long.parseLong(category_id));
             //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
             response.sendRedirect("IndexPost.jsp");
         } else {

@@ -36,6 +36,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
     </head>
     <body class="sb-nav-fixed">
         <%
@@ -236,7 +237,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Nội dung</label>
-                                <input type="text" class="form-control" name="content" placeholder="" value="<%= p.getContent() %>">
+                                <textarea class="form-control" id="content" name="content" placeholder=""><%= p.getContent() %></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCity" class="form-label">Ngày cập nhật</label>
@@ -312,6 +313,9 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script>
+            var editor = CKEDITOR.replace('content');
+        </script>
     </body>
 </html>
 

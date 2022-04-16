@@ -36,6 +36,8 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
+
     </head>
     <body class="sb-nav-fixed">
         <%
@@ -212,7 +214,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Nội dung</label>
-                                <textarea rows="15" cols="100" class="form-control" name="content" placeholder="Nội dung bài viết ..."></textarea>
+                                <textarea rows="15" cols="100" class="form-control" id="content" name="content" placeholder="Nội dung bài viết ..."></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCity" class="form-label">Ngày cập nhật</label>
@@ -239,7 +241,7 @@
                                 <select name="user_id" class="form-select">
                                     <option selected>Chọn tác giả</option>
                                     <% for (User p : dao.getAllUser()) {%>                                 
-                                    <option value="<%=p.getUserId()%>"><%=p.getFullname() %></option>
+                                    <option value="<%=p.getUserId()%>"><%=p.getFullname()%></option>
                                     <% } %>
                                 </select>
                             </div>
@@ -248,7 +250,7 @@
                                 <select name="category_id" class="form-select">
                                     <option selected>Chọn chủ đề</option>
                                     <% for (Category p : dao.getAllCategory()) {%>                                 
-                                    <option value="<%=p.getCategoryId()%>"><%=p.getCatTitle() %></option>
+                                    <option value="<%=p.getCategoryId()%>"><%=p.getCatTitle()%></option>
                                     <% }%>
                                 </select>
                             </div>
@@ -264,7 +266,7 @@
                                 <input type="submit" class="btn btn-primary" value="Tạo">
                             </div>
                         </form>
-
+                        
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -288,6 +290,9 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script>
+            var editor = CKEDITOR.replace('content');
+        </script>
     </body>
 </html>
 
