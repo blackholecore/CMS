@@ -205,8 +205,10 @@
                             <li class="breadcrumb-item active">Tạo chủ đề mới</li>
                         </ol>
 
-                        <form action="CreateCategory" method="POST" class="row g-3">
-                            
+                        <form action="EditCategory" method="POST" class="row g-3">
+                            <div class="col-md-12">
+                                <input type="hidden" name="category_id" for="inputEmail4" class="form-label" value="<%=cat.get(0).getCategoryId()%>" >
+                            </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tên chủ đề</label>
                                 <input type="text" class="form-control" name="category_title" value="<%=p.getCatTitle() %>">

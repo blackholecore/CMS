@@ -206,7 +206,10 @@
                             <li class="breadcrumb-item active">Sửa thẻ bài viết</li>
                         </ol>
 
-                        <form action="CreateTag" method="POST" class="row g-3">
+                        <form action="EditTag" method="POST" class="row g-3">
+                            <div class="col-md-12">
+                                <input type="hidden" name="tag_id" for="inputEmail4" class="form-label" value="<%=tag.get(0).getTagId()%>" >
+                            </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tên thẻ (Tag)</label>
                                 <input type="text" class="form-control" name="tag_title" value="<%=p.getTagTitle() %>">

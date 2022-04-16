@@ -51,7 +51,7 @@ public class EditCategory extends HttpServlet {
 //        }
 
         String category_id = request.getParameter("category_id");
-        String cat_title = request.getParameter("cat_title");
+        String cat_title = request.getParameter("category_title");
         String slug = request.getParameter("slug");
         String icon = request.getParameter("icon");
 
