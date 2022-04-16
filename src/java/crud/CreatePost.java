@@ -75,7 +75,7 @@ public class CreatePost extends HttpServlet {
             PostDAO dao = new PostDAO();
             dao.insertPost(post_title, slug, thumbnail, summary, UpdatedDate , Boolean.parseBoolean(published), PublishedDate , content, Long.parseLong(user_id), Integer.parseInt(viewcount), Long.parseLong(category_id));
             //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
-            response.sendRedirect("ManagerControl");
+            response.sendRedirect("IndexPost.jsp");
         } else {
             //day ve trang login.jsp
             request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");

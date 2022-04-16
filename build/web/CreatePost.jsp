@@ -187,7 +187,7 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4" style="max-width: 750px;">
                         <h1 class="mt-4">Tin tức</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Tạo bài viết mới</li>
@@ -196,15 +196,15 @@
                         <form action="CreatePost" method="POST" class="row g-3">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tiêu đề</label>
-                                <input type="text" class="form-control" name="post_title" required="Mời bạn nhập tiêu đề!">
+                                <input type="text" class="form-control" name="post_title" required="Mời bạn nhập tiêu đề!" maxlength="60">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputPassword4" class="form-label">Slug</label>
-                                <input type="text" class="form-control" name="slug">
+                                <input type="text" class="form-control" name="slug" maxlength="100">
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Hình ảnh</label>
-                                <input type="file" class="form-control" name="thumbnail" required="Mời bạn thêm hình ảnh">
+                                <input type="file" class="form-control" name="thumbnail" required="Mời bạn thêm hình ảnh" maxlength="70">
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Tóm tắt</label>
@@ -221,9 +221,9 @@
                             <div class="col-md-6">
                                 <label for="inputState" class="form-label">Trạng thái Xuất bản</label>
                                 <select name="published" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>True</option>
-                                    <option>False</option>
+                                    <!--                                    <option selected>Chọn trạng thái</option>-->
+                                    <option selected value="True">Xuất bản</option>
+                                    <option value="False">Lưu nháp</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -232,34 +232,34 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="inputCity" class="form-label">Số lượt xem</label>
-                                <input type="number" name="viewcount"  class="form-control"/> 
+                                <input type="number" name="viewcount" value="0" min="0" class="form-control"/> 
                             </div>
                             <div class="col-md-4">
                                 <label for="inputState" class="form-label">Mã tác giả</label>
                                 <select name="user_id" class="form-select">
-                                    <option selected>Choose...</option>
+                                    <option selected>Chọn tác giả</option>
                                     <% for (User p : dao.getAllUser()) {%>                                 
-                                        <option><%=p.getUserId() %></option>
+                                    <option value="<%=p.getUserId()%>"><%=p.getFullname() %></option>
                                     <% } %>
                                 </select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <label for="inputCity" class="form-label">Mã chủ đề </label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Choose...</option>
+                                    <option selected>Chọn chủ đề</option>
                                     <% for (Category p : dao.getAllCategory()) {%>                                 
-                                        <option><%=p.getCategoryId() %></option>
-                                    <% } %>
+                                    <option value="<%=p.getCategoryId()%>"><%=p.getCatTitle() %></option>
+                                    <% }%>
                                 </select>
                             </div>
-<!--                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                        Check me out
-                                    </label>
-                                </div>
-                            </div>-->
+                            <!--                            <div class="col-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                                                <label class="form-check-label" for="gridCheck">
+                                                                    Check me out
+                                                                </label>
+                                                            </div>
+                                                        </div>-->
                             <div class="col-12">
                                 <input type="submit" class="btn btn-primary" value="Tạo">
                             </div>

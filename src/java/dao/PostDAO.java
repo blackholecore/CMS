@@ -723,7 +723,7 @@ public class PostDAO {
     // END CRUD PostComment
     // START CRUD User
     public void deleteUser(Long user_id) {
-        String query = "delete from category\n"
+        String query = "delete from user\n"
                 + "where post_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
