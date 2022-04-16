@@ -281,8 +281,8 @@
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getTagId() %></td>
                                             <td class="text-center" style="vertical-align: middle"><%=p.getTagTitle() %></td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <a  href="" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
-                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                                <a  href="EditTag.jsp?tag=<%=p.getTagId() %>" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
+<!--                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>-->
                                                 <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteTag?tid=<%=p.getTagId() %>';"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

@@ -56,14 +56,13 @@ public class PostDAO {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10)
-                        
                 ));
             }
         } catch (Exception e) {
         }
         return list;
     }
-    
+
     //ok
     public List<PostComment> getCommentByPostID(Long cid) {
         List<PostComment> list = new ArrayList<>();
@@ -92,7 +91,7 @@ public class PostDAO {
         }
         return list;
     }
-    
+
     //ok
     public List<Advertisement> getAllAdvertisement() {
         List<Advertisement> list = new ArrayList<>();
@@ -109,14 +108,14 @@ public class PostDAO {
                         rs.getDate(4),
                         rs.getDate(5),
                         rs.getDate(6),
-                        rs.getBoolean(7)             
+                        rs.getBoolean(7)
                 ));
             }
         } catch (Exception e) {
         }
         return list;
     }
-    
+
     //ok
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
@@ -142,9 +141,7 @@ public class PostDAO {
         }
         return list;
     }
-    
 
-    
     //ok
     public List<User> getAllUser2() {
         List<User> list = new ArrayList<>();
@@ -167,7 +164,7 @@ public class PostDAO {
                             rs.getString(9),
                             rs.getBoolean(10),
                             rs.getBoolean(11),
-                            rs.getBoolean(12)                       
+                            rs.getBoolean(12)
                     ));
                 }
             }
@@ -312,7 +309,7 @@ public class PostDAO {
     //ok
     public List<Post> searchPostByName(String txtSearch) {
         List<Post> list = new ArrayList<>();
-        String query = "select * from post WHERE post_title like '%"+ txtSearch +"%'";
+        String query = "select * from post WHERE post_title like '%" + txtSearch + "%'";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -446,6 +443,26 @@ public class PostDAO {
                 list.add(new Category(rs.getLong(1),
                         rs.getString(2),
                         rs.getString(3)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    //ok
+    public List<Tag> getTagById(Long id) {
+        List<Tag> list = new ArrayList<>();
+        String query = "select * from tag where tag_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Tag(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getLong(3)));
             }
         } catch (Exception e) {
         }
@@ -614,7 +631,7 @@ public class PostDAO {
             ps.setString(2, slug);
             ps.setString(3, thumbnail);
             ps.setString(4, thumbnail);
-            ps.setDate(5,  updatedAt);
+            ps.setDate(5, updatedAt);
             ps.setBoolean(6, published);
             ps.setDate(7, publishedAt);
             ps.setLong(8, user_id);
@@ -739,8 +756,8 @@ public class PostDAO {
         PostDAO dao = new PostDAO();
         String txtSearch = "Windows";
         List<Post> list = dao.searchPostByName(txtSearch);
-        if(list != null){
-            for(Post p : list){
+        if (list != null) {
+            for (Post p : list) {
                 System.out.println(p.getPostTitle());
             }
         }
