@@ -234,9 +234,11 @@
                                             <th class="text-center" style="vertical-align: middle">Id</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>                                           
                                             <th class="text-center" style="vertical-align: middle">Ảnh bìa</th>
-                                            <th class="text-center" style="vertical-align: middle">Nội dung</th>
+                                            <th class="text-center" style="vertical-align: middle">Xem trên web</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày cập nhật</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày xuất bản</th>
+                                            <th class="text-center" style="vertical-align: middle">Trạng thái</th>
+                                            <!--                                            <th class="text-center hide" style="vertical-align: middle">Xem chi tiết</th>-->
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
                                     </thead>
@@ -245,9 +247,11 @@
                                             <th class="text-center" style="vertical-align: middle">Id</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>                                           
                                             <th class="text-center" style="vertical-align: middle">Ảnh bìa</th>
-                                            <th class="text-center" style="vertical-align: middle">Nội dung</th>
+                                            <th class="text-center" style="vertical-align: middle">Xem trên web</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày cập nhật</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày xuất bản</th>
+                                            <th class="text-center" style="vertical-align: middle">Trạng thái</th>
+                                            <!--                                            <th class="text-center" style="vertical-align: middle">Xem chi tiết</th>-->
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
                                     </tfoot>
@@ -260,13 +264,41 @@
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getPostTitle()%></td>
                                             <td class="text-center" style="vertical-align: middle"><img src="assets/images/<%=p.getThumbnail()%>" width="100" height="100"/></td>
                                             <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getPublished() == true) {%>
                                                 <a target="_blank" style="text-decoration: none" href="Blog.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-success"><i class="fa fa-eye"></i> Xem chi tiết</a>
+<!--                                                <a target="_blank" style="text-decoration: none" href="Blog.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-success"><i class="fa fa-eye"></i> Xem chi tiết</a>-->
+                                                <% } else {%>
+                                                <p style="background-color: yellow;">Xuất bản để xem</p>
+                                                <%}%>
                                             </td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getUpdatedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getPublishedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getPublished() == true) { %>
+                                                <p class="btn-sm text-white" style="background-color: purple;"><i class="fa fa-toggle-on"></i> Đã xuất bản</p>
+                                                <% } else {%>
+                                                <p class="btn-sm text-white" style="background-color: #888;"><i class="fa fa-toggle-off"></i> Lưu nháp</p>
+                                                <%}%>
+                                            </td>
+                                            <!--                                            <td class="hide">
+                                                                                            <div id="id02" class="modal">
+                                                                                                <span onclick="document.getElementById('id02').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="container row">
+                                                                                                        <h1>Nội dung bài viết</h1>
+                                                                                                        <p><%=p.getContent()%></p>
+                                                                                                        <div class="col-12 text-center">
+                                                                                                            <a style="text-decoration: none;" type="button" onclick="document.getElementById('id02').style.display = 'none'" class="btn-outline-success btn-lg"><i class="fa fa-times bold"></i> Đóng</a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div
+                                                                                            </div>
+                                                                                        </td>-->
+                                            <td class="text-center" style="vertical-align: middle">
+
+                                                <a  class="btn-sm btn-danger" onclick="document.getElementById('id02').style.display = 'block';" > <i class="fa fa-eye" data-toggle="tooltip" title="Xem"></i></a>
                                                 <a  href="EditPost.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-warning"><i class="fa fa-pen" data-toggle="tooltip" title="Sửa"></i></a>                                              
-                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeletePost?pid=<%=p.getPostId()%>';" > <i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeletePost?pid=<%=p.getPostId()%>';" > <i class="fa fa-trash" data-toggle="tooltip" title="Xóa"></i></a>
                                             </td>
                                         </tr>
 
@@ -381,6 +413,7 @@
                                         </div>
                                     </form>
                                 </div>
+
                                 <script>
                                     // Get the modal
                                     var modal = document.getElementById('id01');
@@ -391,7 +424,6 @@
                                             modal.style.display = "none";
                                         }
                                     };
-
 
                                 </script>
 
