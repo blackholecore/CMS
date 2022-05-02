@@ -12,11 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Website/CMS/web/Category.jsp</file>
+            <file>file:/C:/Website/CMS/src/java/crud/CreatePost.java</file>
             <file>file:/C:/Website/CMS/web/IndexPost.jsp</file>
-            <file>file:/C:/Website/CMS/src/java/control/Blog.java</file>
-            <file>file:/C:/Website/CMS/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Website/CMS/web/Blog.jsp</file>
-            <file>file:/C:/Website/CMS/src/java/control/Index.java</file>
+            <file>file:/C:/Website/CMS/src/java/api/Mailer.java</file>
+            <file>file:/C:/Website/CMS/web/footer.jsp</file>
+            <file>file:/C:/Website/CMS/web/header.jsp</file>
+            <file>file:/C:/Website/CMS/src/java/api/MailController.java</file>
+            <file>file:/C:/Website/CMS/web/GetNewPost.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -52,12 +52,12 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-<!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>-->
+            <!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>-->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -191,6 +191,7 @@
                         <h1 class="mt-4">Thông tin tài khoản</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Danh sách tài khoản</li>
+                            <li class="breadcrumb-item active"><a  href="CreateUser.jsp" class="btn btn-danger"><i class="fa fa-pen"></i> Tạo tài khoản mới</a></li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -253,7 +254,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Danh sách bài viết
+                                Danh sách tài khoản
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -297,14 +298,14 @@
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a  href="" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
                                                 <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block'"><i class="fa fa-trash"></i></a>
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteUser?uid=<%=p.getUserId() %>';"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <% }%>
                                     </tbody>
                                 </table>
-                                    
-                                    <style>
+
+                                <style>
                                     /* Set a style for all buttons */
                                     button {
                                         background-color: #04AA6D;
@@ -400,12 +401,12 @@
                                     <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
                                     <form class="modal-content" action="/action_page.php">
                                         <div class="container">
-                                            <h1>Xóa bài viết</h1>
-                                            <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
+                                            <h1>Xóa người dùng</h1>
+                                            <p>Bạn có chắc chắn muốn xóa người dùng này khỏi hệ thống?</p>
 
                                             <div class="clearfix">
-                                                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn"><i class="fa fa-times bold"></i> Cancel</button>
-                                                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn"><i class="fa fa-trash bold"></i> Delete</button>
+                                                <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
+                                                <a id="xoa" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
                                             </div>
                                         </div>
                                     </form>

@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Blog", urlPatterns = {"/Blog"})
 public class Blog extends HttpServlet {
 
+    public static String SLUGID = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,24 +46,30 @@ public class Blog extends HttpServlet {
 //            out.println("<title>Servlet Blog</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet Blog at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet Blog at " + request.getServletPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+        
         PostDAO dao = new PostDAO();
         List<Post> post = dao.getAllPost();
         Post p = new Post();
         String post_id = "";
-        if (request.getParameter("post") != null) {
-            post_id = request.getParameter("post");
+        if (request.getParameter("postID") != null) {
+            post_id = request.getParameter("postID");
             post = dao.getPostByID(Long.parseLong(post_id));
+            p.setPostId(post.get(0).getPostId());
             p.setPostTitle(post.get(0).getPostTitle());
+            p.setSlug(post.get(0).getSlug());
             p.setPublishedAt(post.get(0).getPublishedAt());
             p.setUpdatedAt(post.get(0).getUpdatedAt());
             p.setThumbnail(post.get(0).getThumbnail());
             p.setContent(post.get(0).getContent());
-        }
-        response.sendRedirect("Blog.jsp?post="+p.getPostId());
+            Blog.SLUGID = p.getSlug()+"-"+p.getPostId();
+            response.sendRedirect("Blog.jsp?/"+Blog.SLUGID);
+        }else{
+            response.sendRedirect("404.html");
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -90,6 +99,7 @@ public class Blog extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**

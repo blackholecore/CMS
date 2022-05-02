@@ -15,21 +15,15 @@
         <url-pattern>/trang-chu</url-pattern>
     </servlet-mapping>
     
-    <servlet>
+<!--    <servlet>
         <servlet-name>Blog</servlet-name>
-        <jsp-file>/Blog.jsp</jsp-file>
+        <jsp-file>/Blog.jsp/*</jsp-file>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Blog</servlet-name>
-        <url-pattern>/bai-viet</url-pattern>
-    </servlet-mapping>
-    
-    
-    
-    
-    
-    
+        <url-pattern>/trang-blog/*</url-pattern>
+    </servlet-mapping>-->
     
     
     <session-config>

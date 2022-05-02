@@ -1,0 +1,23 @@
+$textColor: rgb(99, 115, 129);
+$textdefaultColor: #fff;
+$textColorActive: rgb(0, 171, 85);
+$backgroundColorActive: rgb(0, 171, 85);
+$borderColorActive: rgb(0, 171, 85);
+$backgroundColorActiveHover: rgba(0, 171, 85, 0.16);
+$primaryColor: rgb(33, 43, 54);
+$backgroundColor: #fff;
+$backgroundPrimaryColor: rgb(244, 246, 248);
+$backgroundHoverColor: rgba(145, 158, 171, 0.06);
+$borderColor: rgba(145, 158, 171, 0.24);
+$fontSize: 1rem;
+$fontWeights: (
+    "regular": 400,
+    "medium": 500,
+    "bold": 700,
+);
+$fontFamily: "Public Sans", sans-serif;
+$lineHeight: 1.5;
+
+$tablet: 1024px;
+$mobile: 768px;
+$laptop: 1224px;

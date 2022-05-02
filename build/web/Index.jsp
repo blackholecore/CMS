@@ -70,7 +70,7 @@
                                 <div class="col-lg-6 col-md-6 col-12 col-sm-6">
                                     <div class="blog-wrap mb-40">
                                         <div class="blog-img mb-20">
-                                            <a href="Blog.jsp?post=<%=c.getPostId()%>"><img src="assets/images/<%=c.getThumbnail()%>" alt="blog-img"></a>
+                                            <a href="Blog?postID=<%=c.getPostId() %>"><img src="assets/images/<%=c.getThumbnail()%>" alt="blog-img"></a>
                                         </div>
                                         <div class="blog-content">
                                             <div class="blog-meta">
@@ -80,7 +80,7 @@
                                                     <li>Đăng bài: <%=c.getPublishedAt()%></li>
                                                 </ul>
                                             </div>
-                                            <h1><a href="Blog.jsp?post=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h1>
+                                            <h1><a href="Blog?postID=<%=c.getPostId() %>"><%=c.getPostTitle()%></a></h1>
                                         </div>
                                     </div>
                                 </div>

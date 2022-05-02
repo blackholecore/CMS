@@ -6,6 +6,8 @@
 <%@page import="entity.Post"%>
 <%@page import="entity.User"%>
 <%@page import="dao.PostDAO"%>
+<%@page import="javax.swing.text.html.HTML"%>
+
 <%
     User a = (User) session.getAttribute("acc");
     if (a != null) {
@@ -53,12 +55,12 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-<!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>-->
+            <!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>-->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -192,6 +194,7 @@
                         <h1 class="mt-4">Comment (đánh giá - bình luận)</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Danh sách Comment</li>
+                            <li class="breadcrumb-item active"><a  href="CreateComment.jsp" class="btn btn-danger"><i class="fa fa-pen"></i> Tạo đánh giá mới</a></li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -254,55 +257,180 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Danh sách bài viết
+                                Danh sách bình luận
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr >
-                                            <th class="text-center" style="vertical-align: middle">ID</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày cập nhật</th>
                                             <th class="text-center" style="vertical-align: middle">Cho phép đăng</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày đăng</th>
                                             <th class="text-center" style="vertical-align: middle">Nội dung</th>
-                                            
-                                            <th class="text-center" style="vertical-align: middle">Email</th>
-                                            <th class="text-center" style="vertical-align: middle">Website</th>
-                                            <th class="text-center" style="vertical-align: middle">Họ tên</th>
+                                            <th class="text-center" style="vertical-align: middle">Mã bài viết</th>
+                                            <th class="text-center" style="vertical-align: middle">Email comment</th>
+                                            <th class="text-center" style="vertical-align: middle">Website comment</th>
+                                            <th class="text-center" style="vertical-align: middle">Họ tên người bình luận</th>
+                                            <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th class="text-center" style="vertical-align: middle">ID</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày cập nhật</th>
                                             <th class="text-center" style="vertical-align: middle">Cho phép đăng</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày đăng</th>
                                             <th class="text-center" style="vertical-align: middle">Nội dung</th>
-                                            
-                                            <th class="text-center" style="vertical-align: middle">Email</th>
-                                            <th class="text-center" style="vertical-align: middle">Website</th>
-                                            <th class="text-center" style="vertical-align: middle">Họ tên</th>
+                                            <th class="text-center" style="vertical-align: middle">Email comment</th>
+                                            <th class="text-center" style="vertical-align: middle">Website comment</th>
+                                            <th class="text-center" style="vertical-align: middle">Họ tên người bình luận</th>
+                                            <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <% for (PostComment p : dao.getAllComment()) {%>
+                                        <% List<PostComment> listCC = dao.getAllComment(); %>
+                                        <% for (PostComment p : listCC) {%>
                                         <tr>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getPostCommentId() %></td>
-                                            <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getCommentTitle() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=f.format(p.getUpdatedAt()) %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=f.format(p.getPublished()) %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getPublishedAt() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getContent() %></td>
-                                            
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getCommentEmail() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getCommentWebsite() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getCommentFullname() %></td>
+                                            <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getCommentTitle()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getUpdatedAt()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getPublished()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getPublishedAt()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getContent()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getPostId()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getCommentEmail()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getCommentWebsite()%></td>
+                                            <td class="text-center" style="vertical-align: middle"><%=p.getCommentFullname()%></td>
+                                            <td class="text-center" style="vertical-align: middle">
+
+                                                <!--                                                <a  class="btn-sm btn-danger" onclick="document.getElementById('id02').style.display = 'block';" > <i class="fa fa-eye" data-toggle="tooltip" title="Xem"></i></a>-->
+                                                <a  href="EditComment.jsp?comment=<%=p.getPostCommentId()%>" class="btn-sm btn-warning"><i class="fa fa-pen" data-toggle="tooltip" title="Sửa"></i></a>                                              
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteComment?comid=<%=p.getPostCommentId()%>';" > <i class="fa fa-trash" data-toggle="tooltip" title="Xóa"></i></a>
+                                            </td>
                                         </tr>
                                         <% }%>
                                     </tbody>
                                 </table>
+
+                                <style>
+                                    /* Set a style for all buttons */
+                                    button {
+                                        background-color: #04AA6D;
+                                        color: white;
+                                        padding: 14px 20px;
+                                        margin: 8px 0;
+                                        border: none;
+                                        cursor: pointer;
+                                        width: 100%;
+                                        opacity: 0.9;
+                                    }
+
+                                    button:hover {
+                                        opacity:1;
+                                    }
+
+                                    /* Float cancel and delete buttons and add an equal width */
+                                    .cancelbtn, .deletebtn {
+                                        float: left;
+                                        width: 50%;
+                                    }
+
+                                    /* Add a color to the cancel button */
+                                    .cancelbtn {
+                                        background-color: #ccc;
+                                        color: black;
+                                    }
+
+                                    /* Add a color to the delete button */
+                                    .deletebtn {
+                                        background-color: #f44336;
+                                    }
+
+                                    /* Add padding and center-align text to the container */
+                                    .container {
+                                        padding: 16px;
+                                        text-align: center;
+                                    }
+
+                                    /* The Modal (background) */
+                                    .modal {
+                                        display: none; /* Hidden by default */
+                                        position: fixed; /* Stay in place */
+                                        z-index: 1; /* Sit on top */
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; /* Full width */
+                                        height: 100%; /* Full height */
+                                        overflow: auto; /* Enable scroll if needed */
+                                        background-color: rgba(0, 0, 0, 0.3);
+                                        padding-top: 50px;
+                                    }
+
+                                    /* Modal Content/Box */
+                                    .modal-content {
+                                        background-color: #fefefe;
+                                        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+                                        border: 1px solid #888;
+                                        width: 40%; /* Could be more or less, depending on screen size */
+                                    }
+                                    /* The Modal Close Button (x) */
+                                    .close {
+                                        position: absolute;
+                                        right: 35px;
+                                        top: 15px;
+                                        font-size: 40px;
+                                        font-weight: bold;
+                                        color: #f1f1f1;
+                                    }
+
+                                    .close:hover,
+                                    .close:focus {
+                                        color: #f44336;
+                                        cursor: pointer;
+                                    }
+
+                                    /* Clear floats */
+                                    .clearfix::after {
+                                        content: "";
+                                        clear: both;
+                                        display: table;
+                                    }
+
+                                    /* Change styles for cancel button and delete button on extra small screens */
+                                    @media screen and (max-width: 300px) {
+                                        .cancelbtn, .deletebtn {
+                                            width: 100%;
+                                        }
+                                    }
+                                </style>
+                                <!-- Form xóa -->
+                                <div id="id01" class="modal">
+                                    <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+                                    <form class="modal-content" action="/action_page.php">
+                                        <div class="container">
+                                            <h1>Xóa bình luận</h1>
+                                            <p>Bạn có chắc chắn muốn xóa bình luận này?</p>
+
+                                            <div class="clearfix">
+                                                <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
+                                                <a id="xoa" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <script>
+                                    // Get the modal
+                                    var modal = document.getElementById('id01');
+
+                                    // When the user clicks anywhere outside of the modal, close it
+                                    window.onclick = function (event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+                                        }
+                                    };
+
+                                </script>
                             </div>
                         </div>
                     </div>

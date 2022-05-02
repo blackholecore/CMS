@@ -39,7 +39,7 @@ public class PostDAO {
     //ok
     public List<PostComment> getAllComment() {
         List<PostComment> list = new ArrayList<>();
-        String query = "SELECT * FROM `post_comment`";
+        String query = "select * from post_comment";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -56,6 +56,29 @@ public class PostDAO {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    //ok
+    public List<PostComment> getAllComment2() {
+        List<PostComment> list = new ArrayList<>();
+        String query = "select * from post_comment";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S D B D S S S S L 
+                list.add(new PostComment(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getBoolean(4),
+                        rs.getDate(5),
+                        rs.getString(6)
                 ));
             }
         } catch (Exception e) {
@@ -366,6 +389,31 @@ public class PostDAO {
         }
         return list;
     }
+    //ok
+    public List<Post> getPostBySLUGID(String slugid) {
+        List<Post> list = new ArrayList<>();
+        String query = "select * from post where concat(slug,'-',post_id) = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, slugid);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S S S D B D S
+                list.add(new Post(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDate(6),
+                        rs.getBoolean(7),
+                        rs.getDate(8),
+                        rs.getString(9)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
 //    private Connection connection;
 //
 //    public Post getPostById(Long postId) {
@@ -643,6 +691,27 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
+    
+    //thay đổi trạng thái xuất bản
+    public void updatePost(Long postId) {
+        String query = "UPDATE `post` SET `published`= ?,`publishedAt`= CURDATE() WHERE post_id = ?";
+        
+        PostDAO dao = new PostDAO();
+        Post post = dao.getPostByID(postId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if(post.getPublished() == true){
+                ps.setBoolean(1, false); 
+                ps.setLong(2, postId); 
+            }else{
+                ps.setBoolean(1, true); 
+                ps.setLong(2, postId); 
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     //END CRUD Post
     // START CRUD Category
@@ -726,8 +795,8 @@ public class PostDAO {
 
     // START CRUD PostComment
     public void deleteComment(Long post_comment_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "delete from post_comment\n"
+                + "where post_comment_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -739,6 +808,49 @@ public class PostDAO {
 
     // END CRUD PostComment
     // START CRUD User
+    
+     public void insertUser(String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) {
+        String query = "INSERT INTO `user`(`fullname`, `birthday`, `gender`, `address`, `email`, `mobile`, `password`, `avatar`, `status`, `isMember`, `isAdmin`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fullname);
+            ps.setDate(2, birthday);
+            ps.setBoolean(3, gender);
+            ps.setString(4, address);
+            ps.setString(5, email);
+            ps.setString(6, mobile);
+            ps.setString(7, password);
+            ps.setString(8, avatar);
+            ps.setBoolean(9, status);
+            ps.setBoolean(10, isMember);
+            ps.setBoolean(11, isAdmin);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void editUser(Long userId,String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) {
+        String query = "UPDATE `user` SET `fullname`=?,`birthday`=?,`gender`=?,`address`=?,`email`=?,`mobile`=?,`password`=?,`avatar`=?,`status`=?,`isMember`=?,`isAdmin`=? WHERE user_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+           ps.setString(1, fullname);
+            ps.setDate(2, birthday);
+            ps.setBoolean(3, gender);
+            ps.setString(4, address);
+            ps.setString(5, email);
+            ps.setString(6, mobile);
+            ps.setString(7, password);
+            ps.setString(8, avatar);
+            ps.setBoolean(9, status);
+            ps.setBoolean(10, isMember);
+            ps.setBoolean(11, isAdmin);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
     public void deleteUser(Long user_id) {
         String query = "delete from user\n"
                 + "where post_id = ?";
@@ -754,13 +866,17 @@ public class PostDAO {
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
-        String txtSearch = "Windows";
-        List<Post> list = dao.searchPostByName(txtSearch);
-        if (list != null) {
-            for (Post p : list) {
-                System.out.println(p.getPostTitle());
-            }
+        List<PostComment> listCC = dao.getAllComment2();
+        for(PostComment c: listCC){
+            System.out.println(c.getContent());
         }
+//        String txtSearch = "Windows";
+//        List<Post> list = dao.searchPostByName(txtSearch);
+//        if (list != null) {
+//            for (Post p : list) {
+//                System.out.println(p.getPostTitle());
+//            }
+//        }
 //        String pid = "36";
 //        dao.deletePost(Long.parseLong(pid));
 //        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());

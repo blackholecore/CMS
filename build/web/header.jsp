@@ -126,15 +126,16 @@
                                                 <% }%>
                                                 </ul>
                                             </li>
-                                            <li><a href="Category.jsp?category=11"><i class="icon-game-controller"></i> Công nghệ </a>
-                                                <!--                                                <ul class="sub-menu-style">
+<!--                                            <li><a href="Category.jsp?category=11"><i class="icon-game-controller"></i> Công nghệ </a>
+                                                                                                <ul class="sub-menu-style">
                                                                                                     <li><a href="blog.html">blog standard </a></li>
                                                                                                     <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
                                                                                                     <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
                                                                                                     <li><a href="blog-details.html">blog details</a></li>
-                                                                                                </ul>-->
-                                            </li>
+                                                                                                </ul>
+                                            </li>-->
                                             <li><a href="Contact.jsp"><i class="icon-phone"></i> Liên hệ </a></li>
+                                            <li><a href="GetNewPost.jsp"><i class="icon-social-pinterest"></i> Nhận bài viết mới </a></li>
                                         </ul>
                                     </nav>
                                 </div>

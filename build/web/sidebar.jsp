@@ -56,10 +56,10 @@
                         <% for (Post c : dao.getTop6()) {%>
                         <div class="single-sidebar-blog">
                             <div class="sidebar-blog-img">
-                                <a href="Blog.jsp?post=<%=c.getPostId() %>"><img src="assets/images/<%=c.getThumbnail() %>" alt="No Image"></a>
+                                <a href="Blog?postID=<%=c.getPostId() %>"><img src="assets/images/<%=c.getThumbnail() %>" alt="No Image"></a>
                             </div>
                             <div class="sidebar-blog-content">
-                                <h5><a href="Blog.jsp?post=<%=c.getPostId() %>"><%=c.getPostTitle() %></a></h5>
+                                <h5><a href="Blog?postID=<%=c.getPostId() %>"><%=c.getPostTitle() %></a></h5>
                                 <span><%=c.getPublishedAt() %></span>
                             </div>
                         </div>

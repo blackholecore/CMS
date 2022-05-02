@@ -1,0 +1,211 @@
+@import "./resets";
+@import "./variables";
+
+@function weight($weight-name) {
+    @return map-get($fontWeights, $weight-name);
+}
+
+@mixin w-h-40 {
+    width: 40px;
+    height: 40px;
+}
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+}
+
+@mixin positionAbsolute {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1200;
+}
+
+@mixin positionFixed {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1200;
+}
+
+@mixin overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 2;
+    cursor: pointer;
+}
+
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: $tablet) and (min-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media (max-width: $laptop) {
+        @content;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: $backgroundColor;
+    color: $primaryColor;
+    font-family: $fontFamily;
+    font-size: $fontSize;
+    font-weight: weight(regular);
+    line-height: $lineHeight;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(180, 188, 195);
+        border-radius: 20px;
+        border: 3px solid rgb(180, 188, 195);
+    }
+}
+
+@import "./darkmode";
+
+a {
+    color: $primaryColor;
+    text-decoration: none;
+}
+
+h4 {
+    font-weight: weight(bold);
+}
+
+.btn-success {
+    background: $backgroundColorActive;
+    border-color: $backgroundColorActive;
+    border-radius: 8px;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+@import "./sidebar";
+
+.main-content {
+    padding-top: 80px;
+    padding-left: 280px;
+
+    @include mobile {
+        padding-left: 0;
+    }
+
+    @include laptop {
+        padding-left: 0;
+    }
+
+    @import "./header";
+
+    main {
+        padding: 30px 40px;
+
+        @include mobile {
+            padding: 30px 15px;
+        }
+
+        @import "./dashboard";
+
+        @import "./cards";
+
+        @import "./users";
+
+        @import "./products";
+
+        @import "./blogs";
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+#page-not-found {
+    overflow: hidden;
+
+    h3 {
+        animation: fadein 0.3s ease;
+    }
+
+    p {
+        @include mobile {
+            padding: 0 25px;
+            text-align: justify;
+        }
+    }
+
+    img {
+        animation: fadein 0.3s ease;
+
+        @include mobile {
+            width: 300px;
+        }
+    }
+}
+
+@import "./login";
+
+.to-top {
+    @include flexCenter;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    @include w-h-40;
+    border-radius: 50%;
+    background: $backgroundColorActive;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+
+    i {
+        color: $textdefaultColor;
+    }
+
+    &.show {
+        opacity: 1;
+        pointer-events: auto;
+        bottom: 80px;
+    }
+}

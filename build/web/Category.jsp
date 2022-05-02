@@ -84,7 +84,7 @@
                                             <li>Đăng bài: <%=c.getPublishedAt()%></li>
                                         </ul>
                                     </div>
-                                    <h1><a href="Blog.jsp?post=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h1>
+                                    <h1><a href="Blog?postID=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h1>
                                 </div>
                             </div>
                         </div>
