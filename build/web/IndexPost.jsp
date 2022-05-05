@@ -36,7 +36,11 @@
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <!--        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <!--        <script type="text/javascript" scr="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>-->
+        <!--        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>-->
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/cr-1.5.5/date-1.1.2/r-2.2.9/sl-1.3.4/datatables.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <%
@@ -227,9 +231,23 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Danh sách bài viết
+                                <div class="row">
+                                    <div class="col-2">
+                                        <button class="csv btn-success">Export CSV</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="sql btn-danger">Export SQL</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="txt btn-dark">Export TXT</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="json btn-warning">Export JSON</button>
+                                    </div>   
+                                </div>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table">
                                     <thead>
                                         <tr >
                                             <th class="text-center" style="vertical-align: middle">Id</th>
@@ -287,7 +305,7 @@
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getUpdatedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getPublishedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <% if (p.getPublished() == true) { %>
+                                                <% if (p.getPublished() == true) {%>
                                                 <a href="UpdatePost?post_id=<%=p.getPostId()%>" class="btn-sm text-white" style="background-color: purple; text-decoration: none;"><i class="fa fa-toggle-on"></i> Đã xuất bản</a>
                                                 <% } else {%>
                                                 <a href="UpdatePost?post_id=<%=p.getPostId()%>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i> Lưu nháp</a>
@@ -302,7 +320,7 @@
                                                         <div class="container row">
                                                             <h1>Nội dung bài viết</h1>                                                           
                                                             <p id="baiviet">
-                                                                <%=p.getContent() %>
+                                                                <%=p.getContent()%>
                                                             </p>
 
                                                             <div class="col-12 text-center">
@@ -464,6 +482,60 @@
                 </footer>
             </div>
         </div>
+
+
+        <script type="module">
+            import {DataTable} from "./js/module.js"
+            const table = new DataTable("table")
+            document.querySelector("button.csv").addEventListener("click", () => {
+            table.export({
+            type:"csv",
+            download: true,
+            lineDelimiter: "\n\n",
+            columnDelimiter: ";"
+            })
+            })
+            document.querySelector("button.sql").addEventListener("click", () => {
+            table.export({
+            type:"sql",
+            download: true,
+            tableName: "export_table"
+            })
+            })
+            document.querySelector("button.txt").addEventListener("click", () => {
+            table.export({
+            type:"txt",
+            download: true,
+            })
+            })
+            document.querySelector("button.json").addEventListener("click", () => {
+            table.export({
+            type:"json",
+            download: true,
+            escapeHTML: true,
+            space: 3
+            })
+            })
+        </script>
+        <!--        <script>
+                    $(document).ready(function () {
+                        $('#datatablesSimple').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'xlsx',
+                                    text: 'Blog',
+                                    exportOptions : {
+                                        modifier: {
+                                            page: 'current'
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+                    });
+                </script>-->
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

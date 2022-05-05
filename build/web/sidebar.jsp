@@ -3,6 +3,8 @@
     Created on : Mar 20, 2022, 6:52:48 PM
     Author     : pc
 --%>
+<%@page import="entity.Advertisement"%>
+<%@page import="java.util.List"%>
 <%@page import="entity.Category"%>
 <%@page import="entity.Tag"%>
 <%@page import="entity.Post"%>
@@ -31,6 +33,14 @@
                         </form>
                     </div>
                 </div>
+                 <div class="sidebar-widget shop-sidebar-border pt-40">
+                    <% List<Advertisement> listCC = dao.getAllAdvertisement();%>
+                    <% for (Advertisement ad : listCC) {%>
+                    <div class="row-12 centered">
+                        <img src="assets/images/<%=ad.getImage()%>" alt="quang-cao" width="250px" height="250px"/>   
+                    </div>                              
+                    <% }%>
+                </div>
                 <div class="sidebar-widget shop-sidebar-border mb-35 pt-40">
                     <h4 class="sidebar-widget-title">Chuyên mục </h4>
                     <div class="shop-catigory">
@@ -51,19 +61,19 @@
                 <div class="sidebar-widget shop-sidebar-border mb-40 pt-40">
                     <h4 class="sidebar-widget-title">Bài đăng gần đây </h4>
                     <div class="recent-post">
-                        
-                        
+
+
                         <% for (Post c : dao.getTop6()) {%>
                         <div class="single-sidebar-blog">
                             <div class="sidebar-blog-img">
-                                <a href="Blog?postID=<%=c.getPostId() %>"><img src="assets/images/<%=c.getThumbnail() %>" alt="No Image"></a>
+                                <a href="Blog?postID=<%=c.getPostId()%>"><img src="assets/images/<%=c.getThumbnail()%>" alt="No Image"></a>
                             </div>
                             <div class="sidebar-blog-content">
-                                <h5><a href="Blog?postID=<%=c.getPostId() %>"><%=c.getPostTitle() %></a></h5>
-                                <span><%=c.getPublishedAt() %></span>
+                                <h5><a href="Blog?postID=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h5>
+                                <span><%=c.getPublishedAt()%></span>
                             </div>
                         </div>
-                            <% }%>
+                        <% }%>
                     </div>
                 </div>
                 <div class="sidebar-widget shop-sidebar-border mb-40 pt-40">
@@ -86,8 +96,8 @@
                                                 <a href="#">Women</a>
                                                 <a href="#">Fashion</a>-->
                         <% for (Tag c : dao.getAllTag()) {%>
-                        <a href="Tag.jsp?tag=<%=c.getTagId() %>"><%=c.getTagTitle() %></a>
-                            <% }%>
+                        <a href="Tag.jsp?tag=<%=c.getTagId()%>"><%=c.getTagTitle()%></a>
+                        <% }%>
                     </div>
                 </div>
             </div>

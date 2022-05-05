@@ -3,6 +3,8 @@
     Created on : Mar 20, 2022, 6:06:57 PM
     Author     : pc
 --%>
+<%@page import="java.util.List"%>
+<%@page import="entity.Advertisement"%>
 <%@page import="entity.Category"%>
 <%@page import="entity.Tag"%>
 <%@page import="entity.Post"%>
@@ -70,7 +72,7 @@
                                 <div class="col-lg-6 col-md-6 col-12 col-sm-6">
                                     <div class="blog-wrap mb-40">
                                         <div class="blog-img mb-20">
-                                            <a href="Blog?postID=<%=c.getPostId() %>"><img src="assets/images/<%=c.getThumbnail()%>" alt="blog-img"></a>
+                                            <a href="Blog?postID=<%=c.getPostId()%>"><img src="assets/images/<%=c.getThumbnail()%>" alt="blog-img"></a>
                                         </div>
                                         <div class="blog-content">
                                             <div class="blog-meta">
@@ -80,7 +82,7 @@
                                                     <li>Đăng bài: <%=c.getPublishedAt()%></li>
                                                 </ul>
                                             </div>
-                                            <h1><a href="Blog?postID=<%=c.getPostId() %>"><%=c.getPostTitle()%></a></h1>
+                                            <h1><a href="Blog?postID=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h1>
                                         </div>
                                     </div>
                                 </div>
@@ -94,6 +96,14 @@
                                     <li><a class="next" href="#"><i class="icon-arrow-right"></i></a></li>
                                 </ul>
                             </div>
+
+                            <% List<Advertisement> listCC = dao.getAllAdvertisement();%>
+                            <% for (Advertisement ad : listCC) {%>
+                            <div class="row-12 centered">
+                                <img src="assets/images/<%=ad.getImage()%>" alt="quang-cao" />   
+                            </div>                              
+                            <% }%>
+
                         </div>
                         <jsp:include page="sidebar.jsp"></jsp:include>
                         </div>

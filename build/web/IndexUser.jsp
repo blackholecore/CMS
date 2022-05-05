@@ -292,9 +292,27 @@
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getFullname() %></td>
                                             <td class="text-center" style="vertical-align: middle"><%=p.getEmail() %></td>
                                             <td class="text-center" style="vertical-align: middle"><%=p.getPassword() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getStatus() %> ...</td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getIsMember() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getIsAdmin() %></td>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getStatus() == true) {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: green; text-decoration: none;"><i class="fa fa-toggle-on"></i> Kích hoạt</a>
+                                                <% } else {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i> Khóa</a>
+                                                <%}%>
+                                            </td>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getIsMember() == true) {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: purple; text-decoration: none;"><i class="fa fa-check"></i></a>
+                                                <% } else {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-square"></i></a>
+                                                <%}%>
+                                            </td>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getIsAdmin() == true) {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: red; text-decoration: none;"><i class="fa fa-toggle-on"></i></a>
+                                                <% } else {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i></a>
+                                                <%}%>
+                                            </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a  href="" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
                                                 <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>

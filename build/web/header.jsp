@@ -135,7 +135,8 @@
                                                                                                 </ul>
                                             </li>-->
                                             <li><a href="Contact.jsp"><i class="icon-phone"></i> Liên hệ </a></li>
-                                            <li><a href="GetNewPost.jsp"><i class="icon-social-pinterest"></i> Nhận bài viết mới </a></li>
+                                            <li><a href="GetNewPost.jsp"><i class="icon-social-pinterest"></i> Nhận tin mới </a></li>
+                                            <li><a href="Movies.jsp"><i class="icon-social-youtube"></i> Movies</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -244,14 +245,6 @@
                                                                             <li><a href="contact.html">contact us </a></li>
                                                                             <li><a href="order-tracking.html">order tracking</a></li>
                                                                             <li><a href="login-register.html">login / register </a></li>
-                                                                        </ul>-->
-                                </li>
-                                <li class="menu-item-has-children "><a href="#"><i class="icon-game-controller"></i> Công nghệ</a>
-                                    <!--                                    <ul class="dropdown">
-                                                                            <li><a href="blog.html">blog standard </a></li>
-                                                                            <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
-                                                                            <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                                            <li><a href="blog-details.html">blog details</a></li>
                                                                         </ul>-->
                                 </li>
                                 <li><a href="Contact.jsp"><i class="icon-phone"></i> Liên hệ</a></li>

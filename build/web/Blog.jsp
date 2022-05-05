@@ -3,6 +3,7 @@
     Created on : Mar 20, 2022, 6:12:11 PM
     Author     : pc
 --%>
+<%@page import="entity.Advertisement"%>
 <%@page import="control.Blog"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -51,7 +52,7 @@
             List<Post> post = dao.getAllPost();
             Post p = new Post();
             String post_id = "";
-            
+
             if (Blog.SLUGID != null) {
                 post = dao.getPostBySLUGID(Blog.SLUGID);
                 //post_id = request.getServletContext();
@@ -199,6 +200,14 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                            <div class="blog-reply-wrapper mt-50">
+                                <% List<Advertisement> listCC = dao.getAllAdvertisement();%>
+                                <% for (Advertisement ad : listCC) {%>
+                                <div class="row-12 centered">
+                                    <img src="assets/images/<%=ad.getImage()%>" alt="quang-cao" />   
+                                </div>                              
+                                <% }%>
                             </div>
                         </div>
                     </div>

@@ -118,7 +118,7 @@ public class PostDAO {
     //ok
     public List<Advertisement> getAllAdvertisement() {
         List<Advertisement> list = new ArrayList<>();
-        String query = "select * from advertisement";
+        String query = "select * from advertisement where status = true";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -196,6 +196,38 @@ public class PostDAO {
         return list;
     }
 
+    //ok
+    public List<User> getUserById(Long uid) {
+        List<User> list = new ArrayList<>();
+        String query = "select * from user where user_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, uid);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {// L S D B S S S S S B B B
+                    list.add(new User(
+                            rs.getLong(1),
+                            rs.getString(2),
+                            rs.getDate(3),
+                            rs.getBoolean(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getString(8),
+                            rs.getString(9),
+                            rs.getBoolean(10),
+                            rs.getBoolean(11),
+                            rs.getBoolean(12)
+                    ));
+                }
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
     //ok
     public List<Post> getAllPost() {
         List<Post> list = new ArrayList<>();
@@ -809,7 +841,8 @@ public class PostDAO {
     // END CRUD PostComment
     // START CRUD User
     
-     public void insertUser(String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) {
+     public void insertUser(String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
+        String passhash = convertHashToString(password);
         String query = "INSERT INTO `user`(`fullname`, `birthday`, `gender`, `address`, `email`, `mobile`, `password`, `avatar`, `status`, `isMember`, `isAdmin`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
@@ -820,7 +853,7 @@ public class PostDAO {
             ps.setString(4, address);
             ps.setString(5, email);
             ps.setString(6, mobile);
-            ps.setString(7, password);
+            ps.setString(7, passhash);
             ps.setString(8, avatar);
             ps.setBoolean(9, status);
             ps.setBoolean(10, isMember);
@@ -830,8 +863,10 @@ public class PostDAO {
         }
     }
     
-    public void editUser(Long userId,String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) {
+    public void editUser(Long userId,String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
+        String passhash = convertHashToString(password);
         String query = "UPDATE `user` SET `fullname`=?,`birthday`=?,`gender`=?,`address`=?,`email`=?,`mobile`=?,`password`=?,`avatar`=?,`status`=?,`isMember`=?,`isAdmin`=? WHERE user_id = ?";
+        PostDAO dao = new PostDAO();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query); // S S S D B D S I I I
@@ -841,7 +876,7 @@ public class PostDAO {
             ps.setString(4, address);
             ps.setString(5, email);
             ps.setString(6, mobile);
-            ps.setString(7, password);
+            ps.setString(7, passhash);
             ps.setString(8, avatar);
             ps.setBoolean(9, status);
             ps.setBoolean(10, isMember);
@@ -866,10 +901,13 @@ public class PostDAO {
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
-        List<PostComment> listCC = dao.getAllComment2();
-        for(PostComment c: listCC){
-            System.out.println(c.getContent());
-        }
+        System.out.println(convertHashToString("huynh69"));
+//        List<User> user = dao.getUserById(2L);
+//        System.out.println(user.get(0).getEmail());
+//        List<Advertisement> listCC = dao.getAllAdvertisement();
+//        for(Advertisement c: listCC){
+//            System.out.println(c.getImage());
+//        }
 //        String txtSearch = "Windows";
 //        List<Post> list = dao.searchPostByName(txtSearch);
 //        if (list != null) {
