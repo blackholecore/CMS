@@ -918,7 +918,63 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
+    
+    //thay đổi trạng thái xuất bản
+    public void updateUser_Admin(Long userId) {
+        String query = "UPDATE `user` SET `isAdmin`= ? WHERE user_id = ?";
 
+        PostDAO dao = new PostDAO();
+        User user = dao.getUserById(userId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (user.getIsAdmin() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, userId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, userId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    //thay đổi trạng thái xuất bản
+    public void updateUser_Member(Long userId) {
+        String query = "UPDATE `user` SET `isMember`= ? WHERE user_id = ?";
+
+        PostDAO dao = new PostDAO();
+        User user = dao.getUserById(userId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (user.getIsMember() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, userId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, userId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    //1 số hàm khác
+    
+    public void deleteAdvertisement(Long banner_id) {
+        String query = "delete from advertisement\n"
+                + "where banner_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, banner_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();

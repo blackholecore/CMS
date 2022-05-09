@@ -266,7 +266,7 @@
                                             <th class="text-center" style="vertical-align: middle">Email</th>
                                             <th class="text-center" style="vertical-align: middle">Hash Password</th>              
                                             <th class="text-center" style="vertical-align: middle">Trạng thái</th>
-                                            <th class="text-center" style="vertical-align: middle">Là thành viên</th>
+                                            <th class="text-center" style="vertical-align: middle">Là thành viên VIP</th>
                                             <th class="text-center" style="vertical-align: middle">Là Admin</th>
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
@@ -279,7 +279,7 @@
                                             <th class="text-center" style="vertical-align: middle">Email</th>
                                             <th class="text-center" style="vertical-align: middle">Hash Password</th>                                          
                                             <th class="text-center" style="vertical-align: middle">Trạng thái</th>
-                                            <th class="text-center" style="vertical-align: middle">Là thành viên</th>
+                                            <th class="text-center" style="vertical-align: middle">Là thành viên VIP</th>
                                             <th class="text-center" style="vertical-align: middle">Là Admin</th>
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
@@ -301,21 +301,21 @@
                                             </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <% if (p.getIsMember() == true) {%>
-                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: purple; text-decoration: none;"><i class="fa fa-check"></i></a>
+                                                <a href="UpdateUser_Member?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: purple; text-decoration: none;"><i class="fa fa-check"></i></a>
                                                 <% } else {%>
-                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-square"></i></a>
+                                                <a href="UpdateUser_Member?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-square"></i></a>
                                                 <%}%>
                                             </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <% if (p.getIsAdmin() == true) {%>
-                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: red; text-decoration: none;"><i class="fa fa-toggle-on"></i></a>
+                                                <a href="UpdateUser_Admin?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: red; text-decoration: none;"><i class="fa fa-toggle-on"></i></a>
                                                 <% } else {%>
-                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i></a>
+                                                <a href="UpdateUser_Admin?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i></a>
                                                 <%}%>
                                             </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a  href="" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
-                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                                <!--                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>-->
                                                 <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteUser?uid=<%=p.getUserId() %>';"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

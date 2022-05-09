@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crudadvertisement;
+package cruduser;
 
 import dao.PostDAO;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author pc
  */
-@WebServlet(name = "DeleteAdvertisement", urlPatterns = {"/DeleteAdvertisement"})
-public class DeleteAdvertisement extends HttpServlet {
+@WebServlet(name = "UpdateUser_Member", urlPatterns = {"/UpdateUser_Member"})
+public class UpdateUser_Member extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +40,28 @@ public class DeleteAdvertisement extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet DeleteAdvertisement</title>");            
+//            out.println("<title>Servlet UpdateUser_Member</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet DeleteAdvertisement at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet UpdateUser_Member at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
 
-        String adid = request.getParameter("adid");
-        PostDAO dao = new PostDAO();
-        dao.deleteAdvertisement(Long.parseLong(adid));
-        response.sendRedirect("IndexAdvertisement.jsp");
+        String user_id = request.getParameter("user_id");
+        HttpSession session = request.getSession();
+        User a = (User) session.getAttribute("acc");
+        if (a != null) {
+            //CHÈN NẾU ĐĂNG NHẬP
+            PostDAO dao = new PostDAO();
+            dao.updateUser_Member(Long.parseLong(user_id));
+            //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
+            response.sendRedirect("IndexUser.jsp");
+        } else {
+            //day ve trang login.jsp
+            request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");
+            response.sendRedirect("Login.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
