@@ -62,7 +62,7 @@ public class PostDAO {
         }
         return list;
     }
-    
+
     //ok
     public List<PostComment> getAllComment2() {
         List<PostComment> list = new ArrayList<>();
@@ -227,7 +227,7 @@ public class PostDAO {
         }
         return list;
     }
-    
+
     //ok
     public List<Post> getAllPost() {
         List<Post> list = new ArrayList<>();
@@ -421,6 +421,7 @@ public class PostDAO {
         }
         return list;
     }
+
     //ok
     public List<Post> getPostBySLUGID(String slugid) {
         List<Post> list = new ArrayList<>();
@@ -593,7 +594,7 @@ public class PostDAO {
         String passhash = convertHashToString(pass);
         String query = "select * from user\n"
                 + "where email = ?\n"
-                + "and password = ? and isAdmin = '1'";
+                + "and password = ? and isAdmin = '1' and status = '1'";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -723,22 +724,22 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
-    
+
     //thay đổi trạng thái xuất bản
     public void updatePost(Long postId) {
         String query = "UPDATE `post` SET `published`= ?,`publishedAt`= CURDATE() WHERE post_id = ?";
-        
+
         PostDAO dao = new PostDAO();
         Post post = dao.getPostByID(postId).get(0);
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query); // S S S D B D S I I I
-            if(post.getPublished() == true){
-                ps.setBoolean(1, false); 
-                ps.setLong(2, postId); 
-            }else{
-                ps.setBoolean(1, true); 
-                ps.setLong(2, postId); 
+            if (post.getPublished() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, postId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, postId);
             }
             ps.executeUpdate();
         } catch (Exception e) {
@@ -840,8 +841,7 @@ public class PostDAO {
 
     // END CRUD PostComment
     // START CRUD User
-    
-     public void insertUser(String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
+    public void insertUser(String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
         String passhash = convertHashToString(password);
         String query = "INSERT INTO `user`(`fullname`, `birthday`, `gender`, `address`, `email`, `mobile`, `password`, `avatar`, `status`, `isMember`, `isAdmin`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -862,15 +862,15 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
-    
-    public void editUser(Long userId,String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
+
+    public void editUser(Long userId, String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
         String passhash = convertHashToString(password);
         String query = "UPDATE `user` SET `fullname`=?,`birthday`=?,`gender`=?,`address`=?,`email`=?,`mobile`=?,`password`=?,`avatar`=?,`status`=?,`isMember`=?,`isAdmin`=? WHERE user_id = ?";
         PostDAO dao = new PostDAO();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query); // S S S D B D S I I I
-           ps.setString(1, fullname);
+            ps.setString(1, fullname);
             ps.setDate(2, birthday);
             ps.setBoolean(3, gender);
             ps.setString(4, address);
@@ -885,7 +885,7 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public void deleteUser(Long user_id) {
         String query = "delete from user\n"
                 + "where post_id = ?";
@@ -898,10 +898,38 @@ public class PostDAO {
         }
     }
 
+    //thay đổi trạng thái xuất bản
+    public void updateUser(Long userId) {
+        String query = "UPDATE `user` SET `status`= ? WHERE user_id = ?";
+
+        PostDAO dao = new PostDAO();
+        User user = dao.getUserById(userId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (user.getStatus() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, userId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, userId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
-        System.out.println(convertHashToString("huynh69"));
+        System.out.println(convertHashToString("khoa69"));
+        User a;
+        a = dao.login("khoaruoi69@gmail.com", "khoa69");
+        if (a == null) {
+        } else {
+            System.out.println(a.getFullname());
+        }
+        
 //        List<User> user = dao.getUserById(2L);
 //        System.out.println(user.get(0).getEmail());
 //        List<Advertisement> listCC = dao.getAllAdvertisement();

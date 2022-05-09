@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control;
+package cruduser;
 
 import dao.PostDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author pc
  */
-@WebServlet(name = "LoginControl", urlPatterns = {"/LoginControl"})
-public class LoginControl extends HttpServlet {
+@WebServlet(name = "UpdateUser", urlPatterns = {"/UpdateUser"})
+public class UpdateUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,13 +40,28 @@ public class LoginControl extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet LoginControl</title>");            
+//            out.println("<title>Servlet UpdateUser</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet LoginControl at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet UpdateUser at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+
+        String user_id = request.getParameter("user_id");
+        HttpSession session = request.getSession();
+        User a = (User) session.getAttribute("acc");
+        if (a != null) {
+            //CHÈN NẾU ĐĂNG NHẬP
+            PostDAO dao = new PostDAO();
+            dao.updateUser(Long.parseLong(user_id));
+            //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
+            response.sendRedirect("IndexUser.jsp");
+        } else {
+            //day ve trang login.jsp
+            request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");
+            response.sendRedirect("Login.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,24 +91,6 @@ public class LoginControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        PostDAO dao = new PostDAO();
-        User a;
-        try {
-            a = dao.login(email, password);
-            if (a == null) {
-                request.setAttribute("mess", "Sai địa chỉ Email hoặc Password hoặc tài khoản bị KHÓA!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("acc", a);
-                response.sendRedirect("ManagerControl");
-            }
-
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
