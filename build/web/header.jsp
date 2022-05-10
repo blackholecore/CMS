@@ -136,7 +136,7 @@
                                             </li>-->
                                             <li><a href="Contact.jsp"><i class="icon-phone"></i> Liên hệ </a></li>
                                             <li><a href="GetNewPost.jsp"><i class="icon-social-pinterest"></i> Nhận tin mới </a></li>
-                                            <li><a href="Movies.jsp"><i class="icon-social-youtube"></i> Movies</a></li>
+                                            <li><a href="Movie"><i class="icon-social-youtube"></i> Movies</a></li>
                                         </ul>
                                     </nav>
                                 </div>

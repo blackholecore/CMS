@@ -12,13 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Website/CMS/src/java/cruduser/CreateUser.java</file>
-            <file>file:/C:/Website/CMS/web/CreateUser.jsp</file>
-            <file>file:/C:/Website/CMS/src/java/context/DBContext.java</file>
-            <file>file:/C:/Website/CMS/src/java/crud/CreatePost.java</file>
             <file>file:/C:/Website/CMS/src/java/dao/PostDAO.java</file>
-            <file>file:/C:/Website/CMS/web/Login.jsp</file>
-            <file>file:/C:/Website/CMS/src/java/control/LoginControl.java</file>
+            <file>file:/C:/Website/CMS/web/Movies.jsp</file>
+            <file>file:/C:/Website/CMS/src/java/control/Movie.java</file>
+            <file>file:/C:/Website/CMS/web/header.jsp</file>
         </group>
     </open-files>
 </project-private>

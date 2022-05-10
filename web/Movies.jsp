@@ -42,8 +42,24 @@
     <body>
         <div class="main-wrapper">
             <jsp:include page="header.jsp"></jsp:include>
-                <div id="movies-block">
+                <div class="breadcrumb-area bg-gray">
+                    <div class="container">
+                        <div class="breadcrumb-content text-center">
+                            <ul>
+                                <li>
+                                    <a href="Index.jsp"><i class="icon-home"></i> Trang chủ</a>
+                                </li>
+                                <li class="active">Danh sách phim</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-area pt-120 pb-120">
+                    <div class="container">
+                        <div class="movies row">
 
+                        </div>
+                    </div>
                 </div>
             <jsp:include page="footer.jsp"></jsp:include>
             </div>
@@ -61,27 +77,75 @@
                         .then(data => {
                             const list = data.d;
                             list.map((item) => {
-                                const name = item.l;
-                                const poster = item.i.imageUrl;
-                                const movie = `<li><img src="${poster}"> <h2>${name}</h2></li>`;
-                                document.getElementById("movies-block").innerHTML += movie;
-                            })
+                                const name = item.l;//lấy được tên                       
+                                const poster = item.i.imageUrl;// lấy được link
+                                const height = item.i.height;
+                                const width = item.i.width;
+
+                                const movie = `<div class="col-4"><a href="` + poster + `">  <img src="` + poster + `" height="200" width="200" alt="No image"/>  </a>     </div>`;
+                                document.querySelector('.movies').innerHTML += movie;
+                                console.log(poster);
+                                console.log(height);
+                                console.log(width);
+                            });
                         })
-//                        .then(function (movies) {
-//                            var htmls = movies.map(function (movie) {
-//                                return `<li>
-//                                <h2>${movie.l}</h2>
-//                        </li>`;
-//                            });
-//                            
-//                            var html = htmls.join('');
-//                            document.getElementById('movies-block').innerHTML = html;
-//                        })
                         .catch(err => console.error(err));
-//                fetch('https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr', options)
-//                        .then(response => response.json())
-//                        .then(response => console.log(response))
-//                        .catch(err => console.error(err));
-        </script>  
+            </script>
+
+
+            <!--            <script>
+                            const settings = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr",
+                                "method": "GET",
+                                "headers": {
+                                    "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
+                                    "X-RapidAPI-Key": "34c232976emsh989cd008e98bd27p1aa66ajsn1237b0ccbf31"
+                                }
+                            };
+            
+                            $.ajax(settings).done(function (response) {
+                                console.log(response);
+                                const data = JSON.parse(response);
+                                $("#data-movies").append(data);
+                            });
+                        </script>-->
+            <!--            <script>
+                            const options = {
+                                method: 'GET',
+                                headers: {
+                                    'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com',
+                                    'X-RapidAPI-Key': '34c232976emsh989cd008e98bd27p1aa66ajsn1237b0ccbf31'
+                                }
+                            };
+            
+                            fetch('https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr', options)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const list = data.d;
+                                        list.map((item) => {
+                                            const name = item.l;
+                                            const poster = item.i.imageUrl;
+                                            const movie = `<li><img src="${poster}"> <h2>${name}</h2></li>`;
+                                            document.getElementById("movies-block").innerHTML += movie;
+                                        })
+                                    })
+            //                        .then(function (movies) {
+            //                            var htmls = movies.map(function (movie) {
+            //                                return `<li>
+            //                                <h2>${movie.l}</h2>
+            //                        </li>`;
+            //                            });
+            //                            
+            //                            var html = htmls.join('');
+            //                            document.getElementById('movies-block').innerHTML = html;
+            //                        })
+                                    .catch(err => console.error(err));
+            //                fetch('https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr', options)
+            //                        .then(response => response.json())
+            //                        .then(response => console.log(response))
+            //                        .catch(err => console.error(err));
+                    </script>  -->
     </body>
 </html>

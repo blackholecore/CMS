@@ -254,7 +254,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Danh sách bài viết
+                                Danh sách quảng cáo
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -291,7 +291,14 @@
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getFromDate())%></td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getToDate())%></td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getCreatedDate())%></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getStatus()%></td>
+<!--                                            <td class="text-center" style="vertical-align: middle"><%=p.getStatus() %></td>-->
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getStatus()) {%>
+                                                <a class="btn-sm btn-success" onclick = "UpdateAd?ad_id=<%=p.getBannerId() %>"> <i class="fa fa-check"></i> </a>
+                                                <% } else {%>
+                                                <a class="btn-sm btn-primary" onclick = "UpdateAd?ad_id=<%=p.getBannerId() %>"> <i class="fa fa-square"></i> </a>
+                                                <%}%>
+                                            </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteAdvertisement?adid=<%=p.getBannerId()%>';"><i class="fa fa-trash"></i></a>
                                             </td>

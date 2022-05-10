@@ -34,6 +34,16 @@
         <url-pattern>/trang-chu</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>Movies</servlet-name>
+        <jsp-file>/Movies.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Movies</servlet-name>
+        <url-pattern>/phim-nuoc-ngoai</url-pattern>
+    </servlet-mapping>
+    
 <!--    <servlet>
         <servlet-name>Blog</servlet-name>
         <jsp-file>/Blog.jsp/*</jsp-file>

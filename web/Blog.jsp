@@ -201,14 +201,14 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="blog-reply-wrapper mt-50">
+                            <div class="row" style="margin-top: 20px;">
                                 <% List<Advertisement> listCC = dao.getAllAdvertisement();%>
                                 <% for (Advertisement ad : listCC) {%>
-                                <div class="row-12 centered">
+                                <div class="col-5 " style="margin-bottom: 10px;">
                                     <img src="assets/images/<%=ad.getImage()%>" alt="quang-cao" />   
-                                </div>                              
+                                </div> 
                                 <% }%>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                     <jsp:include page="sidebar.jsp"></jsp:include>

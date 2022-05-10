@@ -34,9 +34,10 @@
                     </div>
                 </div>
                  <div class="sidebar-widget shop-sidebar-border pt-40">
+                     <h4 class="sidebar-widget-title" style="margin-bottom: 20px;"> Quảng cáo</h4>
                     <% List<Advertisement> listCC = dao.getAllAdvertisement();%>
                     <% for (Advertisement ad : listCC) {%>
-                    <div class="row-12 centered">
+                    <div class="row-12 centered" style="margin-bottom: 10px;">
                         <img src="assets/images/<%=ad.getImage()%>" alt="quang-cao" width="250px" height="250px"/>   
                     </div>                              
                     <% }%>

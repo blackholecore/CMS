@@ -118,10 +118,35 @@ public class PostDAO {
     //ok
     public List<Advertisement> getAllAdvertisement() {
         List<Advertisement> list = new ArrayList<>();
-        String query = "select * from advertisement where status = true";
+        String query = "select * from advertisement where status = true ORDER BY RAND() LIMIT 4";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S D D D B
+                list.add(new Advertisement(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getDate(5),
+                        rs.getDate(6),
+                        rs.getBoolean(7)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    //ok
+    public List<Advertisement> getAdvertisementById(Long ad_id) {
+        List<Advertisement> list = new ArrayList<>();
+        String query = "select * from advertisement where status = true and banner_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, ad_id);
             rs = ps.executeQuery();
             while (rs.next()) {// L S D D D B
                 list.add(new Advertisement(
@@ -962,6 +987,26 @@ public class PostDAO {
     }
 
     //1 số hàm khác
+    
+     public void updateAdvertisement(Long adId) {
+        String query = "UPDATE `advertisement` SET `status`= ? WHERE banner_id = ?";
+
+        PostDAO dao = new PostDAO();
+        Advertisement ad = dao.getAdvertisementById(adId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (ad.getStatus() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, adId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, adId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
     
     public void deleteAdvertisement(Long banner_id) {
         String query = "delete from advertisement\n"
