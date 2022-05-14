@@ -940,6 +940,23 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
+    
+    public void insertAdvertisement(String image, String link, Date from_date, Date to_date, Date created_date, Boolean status) throws NoSuchAlgorithmException {
+        
+        String query = "INSERT INTO `advertisement`(`image`, `link`, `from_date`, `to_date`, `created_date`, `status`) VALUES (?,?,?,?,?,?)";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, image);
+            ps.setString(2, link);
+            ps.setDate(3, from_date);
+            ps.setDate(4, to_date);
+            ps.setDate(5, created_date);
+            ps.setBoolean(6, status);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     // END CRUD PostComment
     // START CRUD User
