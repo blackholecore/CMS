@@ -9,18 +9,22 @@ import dao.PostDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.sql.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.Part;
+import java.lang.String;
 /**
  *
  * @author pc
  */
+@MultipartConfig
 @WebServlet(name = "EditPost", urlPatterns = {"/EditPost"})
 public class EditPost extends HttpServlet {
 
@@ -64,7 +68,12 @@ public class EditPost extends HttpServlet {
         String viewcount = request.getParameter("viewcount");
         String category_id = request.getParameter("category_id");
         String user_id = request.getParameter("user_id");
-
+        
+//        Part part = request.getPart("thumbnail");
+//        
+//        String realPart = request.getServletContext().getRealPath("/assets/images");
+//        String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
+        
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("acc");
         if (a != null) {

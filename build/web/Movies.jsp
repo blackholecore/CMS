@@ -49,21 +49,21 @@
                                 <li>
                                     <a href="Index.jsp"><i class="icon-home"></i> Trang chủ</a>
                                 </li>
-                                <li class="active">Danh sách phim</li>
+                                <li class="active">Phim nước ngoài</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="blog-area pt-120 pb-120">
                     <div class="container">
-                        <div class="movies row">
+                        <div class="movies row card-body">
 
                         </div>
                     </div>
                 </div>
             <jsp:include page="footer.jsp"></jsp:include>
             </div>
-            <script>
+<!--            <script>
                 const options = {
                     method: 'GET',
                     headers: {
@@ -81,8 +81,12 @@
                                 const poster = item.i.imageUrl;// lấy được link
                                 const height = item.i.height;
                                 const width = item.i.width;
-
-                                const movie = `<div class="col-4"><a href="` + poster + `">  <img src="` + poster + `" height="200" width="200" alt="No image"/>  </a>     </div>`;
+                                const q = item.q;
+                                const year = item.y;
+                                
+                                const movie = `<div class="col-6 card-body" style="margin-bottom: 10px;"><a href="` 
+                                                + poster + `"><img src="` + poster + `"height="500" width="500" alt="No image"/></a><h2 style="margin-top: 10px;" class="text-center">` 
+                                                + name + "(Loại: " + q + ") - (Năm: " + year + ")" + `</h2> </div>`;
                                 document.querySelector('.movies').innerHTML += movie;
                                 console.log(poster);
                                 console.log(height);
@@ -90,7 +94,7 @@
                             });
                         })
                         .catch(err => console.error(err));
-            </script>
+            </script>-->
 
 
             <!--            <script>

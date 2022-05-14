@@ -51,10 +51,12 @@
             
             List<Post> post = dao.getAllPost();
             Post p = new Post();
+            Category cat = new Category();
+            User us = new User();
             String post_id = "";
             if (request.getParameter("post") != null) {
                 post_id = request.getParameter("post");
-                post = dao.getPostByID(Long.parseLong(post_id));
+                post = dao.getPostById(Long.parseLong(post_id));
                 p.setPostTitle(post.get(0).getPostTitle());
                 p.setPublishedAt(post.get(0).getPublishedAt());
                 p.setUpdatedAt(post.get(0).getUpdatedAt());
@@ -65,7 +67,9 @@
                 p.setPublished(post.get(0).getPublished());
                 p.setViewcount(post.get(0).getViewcount());
                 p.setCategoryId(post.get(0).getCategoryId());
-                p.setUserId(post.get(0).getUserId());
+                p.setUserId(post.get(0).getUserId());               
+                cat = post.get(0).getCategoryId();
+                us = post.get(0).getUserId();
             }
         %>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -257,12 +261,12 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="inputCity" class="form-label">Số lượt xem</label>
-                                <input type="number" name="viewcount"  class="form-control" value="<%= p.getContent() %>"/> 
+                                <input type="number" name="viewcount"  class="form-control" value="<%= p.getViewcount() %>"/> 
                             </div>
                             <div class="col-md-4">
                                 <label for="inputState" class="form-label">Mã tác giả</label>
                                 <select name="user_id" class="form-select">
-                                    <option selected><%=p.getUserId() %></option>
+                                    <option value="<%=p.getUserId() %>" selected><%=us.getFullname() %> </option>
                                     <% for (User c : dao.getAllUser()) {%>                                 
                                     <option value="<%=c.getUserId()%>"><%=c.getFullname() %></option>
                                     <% } %>
@@ -271,7 +275,7 @@
                             <div class="col-md-2">
                                 <label for="inputCity" class="form-label">Mã chủ đề </label>
                                 <select name="category_id" class="form-select">
-                                    <option selected><%=p.getCategoryId() %></option>
+                                    <option value="<%=p.getCategoryId() %>" selected><%=cat.getCatTitle() %></option>
                                     <% for (Category c : dao.getAllCategory()) {%>                                 
                                     <option value="<%=c.getCategoryId() %>"><%=c.getCatTitle() %></option>
                                     <% } %>

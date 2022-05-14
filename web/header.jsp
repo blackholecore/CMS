@@ -31,12 +31,12 @@
                             </div>
                             <div class="col-xl-8 col-lg-7">
                                 <div class="header-top-right">
-                                    <!--                                    <div class="same-style-wrap">
-                                                                            <div class="same-style same-style-border track-order">
-                                                                                <a href="order-tracking.html">Track Your Order</a>
-                                                                            </div>
-                                                                           
-                                                                        </div>-->
+                                    <div class="same-style-wrap">
+                                        <div class="same-style same-style-border track-order coins">
+                                            
+                                        </div>
+
+                                    </div>
                                     <div class="social-style-1 social-style-1-mrg">
                                         <a href="https://twitter.com/Huynhjs69"><i class="icon-social-twitter"></i></a>
                                         <a href="https://www.facebook.com/huynh2357/"><i class="icon-social-facebook"></i></a>
@@ -121,19 +121,19 @@
                                                                                                     <li><a href="login-register.html">login / register </a></li>
                                                                                                 </ul>-->
                                                 <ul class="sub-menu-style">
-                                                <% for (Category c : dao.getAllCategory()) {%>
-                                                        <li><a href="Category.jsp?category=<%=c.getCategoryId()%>"><%=c.getCatTitle()%></a></li>
-                                                <% }%>
+                                                    <% for (Category c : dao.getAllCategory()) {%>
+                                                    <li><a href="Category.jsp?category=<%=c.getCategoryId()%>"><%=c.getCatTitle()%></a></li>
+                                                        <% }%>
                                                 </ul>
                                             </li>
-<!--                                            <li><a href="Category.jsp?category=11"><i class="icon-game-controller"></i> Công nghệ </a>
-                                                                                                <ul class="sub-menu-style">
-                                                                                                    <li><a href="blog.html">blog standard </a></li>
-                                                                                                    <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
-                                                                                                    <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                                                                    <li><a href="blog-details.html">blog details</a></li>
-                                                                                                </ul>
-                                            </li>-->
+                                            <!--                                            <li><a href="Category.jsp?category=11"><i class="icon-game-controller"></i> Công nghệ </a>
+                                                                                                                                            <ul class="sub-menu-style">
+                                                                                                                                                <li><a href="blog.html">blog standard </a></li>
+                                                                                                                                                <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
+                                                                                                                                                <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
+                                                                                                                                                <li><a href="blog-details.html">blog details</a></li>
+                                                                                                                                            </ul>
+                                                                                        </li>-->
                                             <li><a href="Contact.jsp"><i class="icon-phone"></i> Liên hệ </a></li>
                                             <li><a href="GetNewPost.jsp"><i class="icon-social-pinterest"></i> Nhận tin mới </a></li>
                                             <li><a href="Movie"><i class="icon-social-youtube"></i> Movies</a></li>
@@ -315,5 +315,25 @@
                         </div>
                     </div>
                 </div>-->
+<!--        <script>
+            const options_header = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com',
+                    'X-RapidAPI-Key': '34c232976emsh989cd008e98bd27p1aa66ajsn1237b0ccbf31'
+                }
+            };
+
+            fetch('https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0', options_header)
+                    .then(response => response.json())
+                    .then(db => {
+                        const total = db.data.stats.total;
+                        const totalCoins = db.data.stats.totalCoins;
+                        const totalMarkets = db.data.stats.totalMarkets;
+                        document.querySelector('.coins').innerHTML = `<p>Số loại coin: `+ total + ` - Tống số Coins :`+ totalCoins + ` - Số lượng sàn giao dịch: `+ totalMarkets + `</p>`
+                        console.log(db.data.stats.total);
+                    })
+                    .catch(err => console.error(err));
+        </script>-->
     </body>
 </html>

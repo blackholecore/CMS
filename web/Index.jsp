@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
         <link rel="stylesheet" href="assets/css/plugins/jquery-ui.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 
         <!-- Use the minified version files listed below for better performance and remove the files listed above
         <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
@@ -62,6 +63,9 @@
                 </div>
                 <div class="blog-area pt-120 pb-120">
                     <div class="container">
+
+
+                        <!-- Xuất bản tin-->
                         <div class="row flex-row-reverse">
                             <div class="col-lg-9">
                                 <div class="row">
@@ -114,6 +118,7 @@
                     </div>
                 </div>
             <jsp:include page="footer.jsp"></jsp:include>
+            <script src="js/datatables-simple-demo.js"></script>
         </div>
     </body>
 </html>

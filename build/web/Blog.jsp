@@ -115,32 +115,35 @@
                                 <p><%=p.getContent()%></p>
                             </div>
                             <div class="tag-share">
-                                <div class="dec-tag">
-                                    <ul>
-                                        <li><a href="#">lifestyle ,</a></li>
-                                        <li><a href="#">interior ,</a></li>
-                                        <li><a href="#">outdoor</a></li>
-                                    </ul>
-                                </div>
+                                <!--                                <div class="dec-tag">
+                                                                    <ul>
+                                                                        <li><a href="#">lifestyle ,</a></li>
+                                                                        <li><a href="#">interior ,</a></li>
+                                                                        <li><a href="#">outdoor</a></li>
+                                                                    </ul>
+                                                                </div>-->
                                 <div class="blog-share">
                                     <span>share :</span>
                                     <div class="share-social">
                                         <ul>
                                             <li>
-                                                <a class="facebook" href="#">
-                                                    <i class="icon-social-facebook"></i>
-                                                </a>
+                                                <div class="zalo-share-button" data-href="" data-oaid="579745863508352884" data-layout="1" data-color="blue" data-share-type="1" data-customize="false"></div>
                                             </li>
-                                            <li>
-                                                <a class="twitter" href="#">
-                                                    <i class="icon-social-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="instagram" href="#">
-                                                    <i class="icon-social-instagram"></i>
-                                                </a>
-                                            </li>
+                                            <!--                                            <li>
+                                                                                            <a class="facebook" href="#">
+                                                                                                <i class="icon-social-facebook"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a class="twitter" href="#">
+                                                                                                <i class="icon-social-twitter"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a class="instagram" href="#">
+                                                                                                <i class="icon-social-instagram"></i>
+                                                                                            </a>
+                                                                                        </li>-->
                                         </ul>
                                     </div>
                                 </div>
@@ -216,5 +219,6 @@
                 </div>
             </div>
         <jsp:include page="footer.jsp"></jsp:include>
+        <script src="https://sp.zalo.me/plugins/sdk.js"></script>
     </body>
 </html>

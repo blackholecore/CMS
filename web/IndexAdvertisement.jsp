@@ -283,7 +283,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <% for (Advertisement p : dao.getAllAdvertisement()) {%>
+                                        <% for (Advertisement p : dao.getAllAdvertisement2()) {%>
                                         <tr>
                                             <td class="text-center" style="vertical-align: middle"><%=p.getBannerId()%></td>
                                             <td class="text-center" style="vertical-align: middle"><img src="assets/images/<%=p.getImage()%>" width="100" height="100"/></td>
