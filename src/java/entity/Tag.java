@@ -5,6 +5,7 @@
  */
 package entity;
 
+import dao.PostDAO;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -55,6 +56,13 @@ public class Tag implements Serializable {
     public Tag(Long tagId, String tagTitle) {
         this.tagId = tagId;
         this.tagTitle = tagTitle;
+    }
+    
+    public Tag(Long tagId, String tagTitle, Long postId) {
+        PostDAO dao = new PostDAO();
+        this.tagId = tagId;
+        this.tagTitle = tagTitle;
+        this.postId = dao.getPostByID(postId).get(0);
     }
 
     public Long getTagId() {

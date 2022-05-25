@@ -86,13 +86,14 @@ public class LoginControl extends HttpServlet {
         try {
             a = dao.login(email, password);
             if (a == null) {
-            request.setAttribute("mess", "Sai địa chỉ Email hoặc Password!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("acc", a);
-            response.sendRedirect("ManagerControl");
-        }
+                request.setAttribute("mess", "Sai địa chỉ Email hoặc Password hoặc tài khoản bị KHÓA!");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("acc", a);
+                response.sendRedirect("ManagerControl");
+            }
+
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -10,9 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="css/phonerang.css" rel="stylesheet" />
+
     </head>
     <body>
-        
+
         <div class="subscribe-area bg-gray pt-115 pb-115">
             <div class="container">
                 <div class="row">
@@ -22,23 +24,65 @@
                             <p>Thông tin đến bạn đọc mới nhất đáng tin cậy!</p>
                         </div>
                     </div>
-<!--                    <div class="col-lg-7 col-md-7">
-                        <div id="mc_embed_signup" class="subscribe-form">
-                            <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
-                                <div id="mc_embed_signup_scroll" class="mc-form">
-                                    <input class="email" type="email" required="" placeholder="Nhập email của bạn" name="EMAIL" value="">
-                                    <div class="mc-news" aria-hidden="true">
-                                        <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
-                                    </div>
-                                    <div class="clear">
-                                        <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="col-lg-7 col-md-7">
+                                            <div id="mc_embed_signup" class="subscribe-form">
+                                                <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
+                                                    <div id="mc_embed_signup_scroll" class="mc-form">
+                                                        <input class="email" type="email" required="" placeholder="Nhập email của bạn" name="EMAIL" value="">
+                                                        <div class="mc-news" aria-hidden="true">
+                                                            <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
+                                                        </div>
+                                                        <div class="clear">
+                                                            <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>-->
                 </div>
             </div>
+        </div>
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/62402d2e0bfe3f4a876fe5bf/1fv5b0vji';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+        <!--End of Tawk.to Script-->
+        <div class="zalo-chat-widget" data-oaid="579745863508352884" data-welcome-message="Chúng tôi có thể giúp gì cho bạn!" data-autopopup="0" data-width="" data-height=""></div>
+        <div class='phonering-alo-phone phonering-alo-green phonering-alo-show' id='phonering-alo-phoneIcon'>
+
+            <div class='phonering-alo-ph-circle'></div>
+
+            <div class='phonering-alo-ph-circle-fill'></div>
+
+            <a class='pps-btn-img hidden_lg' href='tel:0365204529' title='Liên hệ'>
+
+                <div class='phonering-alo-ph-img-circle'>
+
+                </div>
+
+                <div class='label-phone'>0365204529</div>
+
+            </a>
+
+            <a class='pps-btn-img hidden_mobile btn-call' href='tel:0365204529;' title='Liên hệ'>
+
+                <div class='phonering-alo-ph-img-circle'>
+
+                </div>
+
+                <div class='label-phone'>0365204529</div>
+
+            </a>
+
         </div>
         <footer class="footer-area bg-gray pb-30">
             <div class="container">
@@ -85,32 +129,35 @@
                 </div>
             </div>
         </footer>
-        
+
         <!-- All JS is here
 ============================================ -->
 
-    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/plugins/slick.js"></script>
-    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="assets/js/plugins/jquery.instagramfeed.min.js"></script>
-    <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
-    <script src="assets/js/plugins/wow.js"></script>
-    <script src="assets/js/plugins/jquery-ui-touch-punch.js"></script>
-    <script src="assets/js/plugins/jquery-ui.js"></script>
-    <script src="assets/js/plugins/magnific-popup.js"></script>
-    <script src="assets/js/plugins/sticky-sidebar.js"></script>
-    <script src="assets/js/plugins/easyzoom.js"></script>
-    <script src="assets/js/plugins/scrollup.js"></script>
-    <script src="assets/js/plugins/ajax-mail.js"></script>
+        <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+        <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+        <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+        <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/plugins/slick.js"></script>
+        <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+        <script src="assets/js/plugins/jquery.instagramfeed.min.js"></script>
+        <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
+        <script src="assets/js/plugins/wow.js"></script>
+        <script src="assets/js/plugins/jquery-ui-touch-punch.js"></script>
+        <script src="assets/js/plugins/jquery-ui.js"></script>
+        <script src="assets/js/plugins/magnific-popup.js"></script>
+        <script src="assets/js/plugins/sticky-sidebar.js"></script>
+        <script src="assets/js/plugins/easyzoom.js"></script>
+        <script src="assets/js/plugins/scrollup.js"></script>
+        <script src="assets/js/plugins/ajax-mail.js"></script>
 
-    <!-- Use the minified version files listed below for better performance and remove the files listed above  
-<script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script>  -->
-    <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+        <!-- Use the minified version files listed below for better performance and remove the files listed above  
+    <script src="assets/js/vendor/vendor.min.js"></script>
+    <script src="assets/js/plugins/plugins.min.js"></script>  -->
+        <!-- Main JS -->
+        <script src="assets/js/main.js"></script>
+
+        <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+
     </body>
-    
+
 </html>

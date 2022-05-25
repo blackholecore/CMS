@@ -1,3 +1,4 @@
+<%@page import="javax.swing.text.html.HTML"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.Format"%>
 <%@page import="entity.Category"%>
@@ -35,7 +36,11 @@
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <!--        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <!--        <script type="text/javascript" scr="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>-->
+        <!--        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>-->
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/cr-1.5.5/date-1.1.2/r-2.2.9/sl-1.3.4/datatables.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <%
@@ -52,12 +57,12 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-<!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>-->
+            <!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>-->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -226,47 +231,115 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Danh sách bài viết
+                                <div class="row">
+                                    <div class="col-2">
+                                        <button class="csv btn-success">Export CSV</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="sql btn-danger">Export SQL</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="txt btn-dark">Export TXT</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="json btn-warning">Export JSON</button>
+                                    </div>   
+                                </div>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table">
                                     <thead>
                                         <tr >
-
+                                            <th class="text-center" style="vertical-align: middle">Id</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>                                           
                                             <th class="text-center" style="vertical-align: middle">Ảnh bìa</th>
-                                            <th class="text-center" style="vertical-align: middle">Nội dung</th>
+                                            <th class="text-center" style="vertical-align: middle">Xem trên web</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày cập nhật</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày xuất bản</th>
+                                            <th class="text-center" style="vertical-align: middle">Trạng thái</th>
+                                            <th class="text-center hide" style="vertical-align: middle">Xem chi tiết</th>
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-
+                                            <th class="text-center" style="vertical-align: middle">Id</th>
                                             <th class="text-center" style="vertical-align: middle">Tiêu đề</th>                                           
                                             <th class="text-center" style="vertical-align: middle">Ảnh bìa</th>
-                                            <th class="text-center" style="vertical-align: middle">Nội dung</th>
+                                            <th class="text-center" style="vertical-align: middle">Xem trên web</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày cập nhật</th>
                                             <th class="text-center" style="vertical-align: middle">Ngày xuất bản</th>
+                                            <th class="text-center" style="vertical-align: middle">Trạng thái</th>
+                                            <th class="text-center" style="vertical-align: middle">Xem chi tiết</th>
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <% Long temp = 0L; %>
                                         <% for (Post p : dao.getAllPost()) {%>
+                                        <% temp = p.getPostId();%>
+                                        <%
+                                            request.setAttribute("postID", p.getPostId());
+                                            request.setAttribute("postSLUG", p.getSlug());
+
+                                        %>
+
+
                                         <tr>
+                                            <td name="ID" class="text-center" style="vertical-align: middle"><p id="mabai"><%=p.getPostId()%> </p></td>
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getPostTitle()%></td>
                                             <td class="text-center" style="vertical-align: middle"><img src="assets/images/<%=p.getThumbnail()%>" width="100" height="100"/></td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <a target="_blank" style="text-decoration: none" href="Blog.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-success"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                                                <% if (p.getPublished() == true) {%>
+
+                                                <!--                                            <form action="Blog" method="POST">
+                                                                                                <input type="text" name="postID" value="<%=p.getPostId()%>" />
+                                                                                                <input type="submit" value="Xem chi tiết">
+                                                                                            </form>-->
+                                                <a target="_blank" style="text-decoration: none" href="Blog?postID=<%=p.getPostId()%>" class="btn-sm btn-success"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                                                <!--                                                <a target="_blank" style="text-decoration: none" href="Blog.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-success"><i class="fa fa-eye"></i> Xem chi tiết</a>-->
+                                                <% } else {%>
+                                                <p style="background-color: yellow;">Xuất bản để xem</p>
+                                                <%}%>
                                             </td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getUpdatedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle"><%=f.format(p.getPublishedAt())%></td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <a  href="EditPost.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>                                              
-                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block'" > <i class="fa fa-trash"></i></a>
+                                                <% if (p.getPublished() == true) {%>
+                                                <a href="UpdatePost?post_id=<%=p.getPostId()%>" class="btn-sm text-white" style="background-color: purple; text-decoration: none;"><i class="fa fa-toggle-on"></i> Đã xuất bản</a>
+                                                <% } else {%>
+                                                <a href="UpdatePost?post_id=<%=p.getPostId()%>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i> Lưu nháp</a>
+                                                <%}%>
+                                            </td>
+                                            <td class="text-center" style="vertical-align: middle">
+
+                                                <a style="text-decoration: none;" class="btn-sm btn-danger" onclick="document.getElementById('id02').style.display = 'block';"> <i class="fa fa-eye" data-toggle="tooltip" title="Xem"></i></a>
+                                                <div id="id02" class="modal">
+                                                    <span onclick="document.getElementById('id02').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+                                                    <div class="modal-content">
+                                                        <div class="container row">
+                                                            <h1>Nội dung bài viết</h1>                                                           
+                                                            <p id="baiviet">
+                                                                <%=p.getContent()%>
+                                                            </p>
+
+                                                            <div class="col-12 text-center">
+                                                                <a style="text-decoration: none;" type="button" onclick="document.getElementById('id02').style.display = 'none'" class="btn-outline-success btn-lg"><i class="fa fa-times bold"></i> Đóng</a>
+                                                            </div>
+                                                        </div>
+                                                    </div
+                                                </div>
+                                            </td>
+                                            <td class="text-center" style="vertical-align: middle">
+
+                                                <!--                                                <a  class="btn-sm btn-danger" onclick="document.getElementById('id02').style.display = 'block';" > <i class="fa fa-eye" data-toggle="tooltip" title="Xem"></i></a>-->
+                                                <a  href="EditPost.jsp?post=<%=p.getPostId()%>" class="btn-sm btn-warning"><i class="fa fa-pen" data-toggle="tooltip" title="Sửa"></i></a>                                              
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeletePost?pid=<%=p.getPostId()%>';" > <i class="fa fa-trash" data-toggle="tooltip" title="Xóa"></i></a>
                                             </td>
                                         </tr>
+
                                         <% }%>
+
                                     </tbody>
 
                                 </table>
@@ -371,24 +444,26 @@
                                             <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
 
                                             <div class="clearfix">
-                                                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn"><i class="fa fa-times bold"></i> Cancel</button>
-                                                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn"><i class="fa fa-trash bold"></i> Delete</button>
+                                                <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
+                                                <a id="xoa" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
                                 <script>
-// Get the modal
+                                    // Get the modal
                                     var modal = document.getElementById('id01');
 
-// When the user clicks anywhere outside of the modal, close it
+                                    // When the user clicks anywhere outside of the modal, close it
                                     window.onclick = function (event) {
                                         if (event.target == modal) {
                                             modal.style.display = "none";
                                         }
-                                    }
+                                    };
+
                                 </script>
+
                             </div>
                         </div>
                     </div>
@@ -407,6 +482,60 @@
                 </footer>
             </div>
         </div>
+
+
+        <script type="module">
+            import {DataTable} from "./js/module.js"
+            const table = new DataTable("table")
+            document.querySelector("button.csv").addEventListener("click", () => {
+            table.export({
+            type:"csv",
+            download: true,
+            lineDelimiter: "\n\n",
+            columnDelimiter: ";"
+            })
+            })
+            document.querySelector("button.sql").addEventListener("click", () => {
+            table.export({
+            type:"sql",
+            download: true,
+            tableName: "export_table"
+            })
+            })
+            document.querySelector("button.txt").addEventListener("click", () => {
+            table.export({
+            type:"txt",
+            download: true,
+            })
+            })
+            document.querySelector("button.json").addEventListener("click", () => {
+            table.export({
+            type:"json",
+            download: true,
+            escapeHTML: true,
+            space: 3
+            })
+            })
+        </script>
+        <!--        <script>
+                    $(document).ready(function () {
+                        $('#datatablesSimple').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'xlsx',
+                                    text: 'Blog',
+                                    exportOptions : {
+                                        modifier: {
+                                            page: 'current'
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+                    });
+                </script>-->
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

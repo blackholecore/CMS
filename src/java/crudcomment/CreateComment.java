@@ -5,9 +5,14 @@
  */
 package crudcomment;
 
+import dao.PostDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +37,10 @@ public class CreateComment extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -46,14 +53,31 @@ public class CreateComment extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+        String comment_title = request.getParameter("comment_title");
+        String comment_fullname = request.getParameter("comment_fullname");
+        String comment_website = request.getParameter("comment_website");
+        String comment_email = request.getParameter("comment_email");
+        String content = request.getParameter("content");
+        String updatedAt = request.getParameter("updatedAt");
+        Date UpdatedDate = Date.valueOf(updatedAt);
+        String published = request.getParameter("published");
+        Boolean published_ = Boolean.parseBoolean(published);
+        String publishedAt = request.getParameter("publishedAt");
+        Date PublishedDate = Date.valueOf(publishedAt);
+        String post_id = request.getParameter("post_id");
+
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("acc");
         if (a != null) {
-            Long id = a.getUserId();
-            response.sendRedirect("CreateComment.jsp");
+            //CHÈN NẾU ĐĂNG NHẬP
+            PostDAO dao = new PostDAO();
+            dao.insertComment(comment_title, UpdatedDate, published_ , PublishedDate, content, Long.parseLong(post_id), comment_email, comment_website, comment_fullname);
+            //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
+            response.sendRedirect("IndexComment.jsp");
         } else {
-            request.setAttribute("mess", "Bạn chưa đăng nhập để vào trang này!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            //day ve trang login.jsp
+            request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");
+            response.sendRedirect("Login.jsp");
         }
     }
 
@@ -69,7 +93,11 @@ public class CreateComment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CreateComment.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -83,7 +111,11 @@ public class CreateComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CreateComment.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

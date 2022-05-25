@@ -5,6 +5,7 @@
  */
 package entity;
 
+import dao.PostDAO;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -107,6 +108,21 @@ public class Post implements Serializable {
         this.published = published;
         this.publishedAt = publishedAt;
         this.content = content;
+    }
+    
+    public Post(Long postId, String postTitle, String slug, String thumbnail, Date updatedAt, boolean published, Date publishedAt, String content, Long userId, int viewCount, Long categoryId) {
+        PostDAO dao = new PostDAO();
+        this.postId = postId;
+        this.postTitle = postTitle;
+        this.slug = slug;
+        this.thumbnail = thumbnail;
+        this.updatedAt = updatedAt;
+        this.published = published;
+        this.publishedAt = publishedAt;
+        this.content = content;
+        this.userId = dao.getUserById(userId).get(0);
+        this.viewcount = viewCount;
+        this.categoryId = dao.getCategoryById(categoryId).get(0);
     }
 
     public Long getPostId() {

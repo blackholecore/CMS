@@ -3,6 +3,8 @@
     Created on : Mar 20, 2022, 6:06:57 PM
     Author     : pc
 --%>
+<%@page import="java.util.List"%>
+<%@page import="entity.Advertisement"%>
 <%@page import="entity.Category"%>
 <%@page import="entity.Tag"%>
 <%@page import="entity.Post"%>
@@ -36,6 +38,7 @@
         <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
         <link rel="stylesheet" href="assets/css/plugins/jquery-ui.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 
         <!-- Use the minified version files listed below for better performance and remove the files listed above
         <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
@@ -60,6 +63,9 @@
                 </div>
                 <div class="blog-area pt-120 pb-120">
                     <div class="container">
+
+
+                        <!-- Xuất bản tin-->
                         <div class="row flex-row-reverse">
                             <div class="col-lg-9">
                                 <div class="row">
@@ -70,7 +76,7 @@
                                 <div class="col-lg-6 col-md-6 col-12 col-sm-6">
                                     <div class="blog-wrap mb-40">
                                         <div class="blog-img mb-20">
-                                            <a href="Blog.jsp?post=<%=c.getPostId()%>"><img src="assets/images/<%=c.getThumbnail()%>" alt="blog-img"></a>
+                                            <a href="Blog?postID=<%=c.getPostId()%>"><img src="assets/images/<%=c.getThumbnail()%>" alt="blog-img"></a>
                                         </div>
                                         <div class="blog-content">
                                             <div class="blog-meta">
@@ -80,7 +86,7 @@
                                                     <li>Đăng bài: <%=c.getPublishedAt()%></li>
                                                 </ul>
                                             </div>
-                                            <h1><a href="Blog.jsp?post=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h1>
+                                            <h1><a href="Blog?postID=<%=c.getPostId()%>"><%=c.getPostTitle()%></a></h1>
                                         </div>
                                     </div>
                                 </div>
@@ -94,12 +100,25 @@
                                     <li><a class="next" href="#"><i class="icon-arrow-right"></i></a></li>
                                 </ul>
                             </div>
+
+
+                            <div class="row" style="margin-top: 20px;">
+                                <% List<Advertisement> listCC = dao.getAllAdvertisement();%>
+                                <% for (Advertisement ad : listCC) {%>
+                                <div class="col-5 " style="margin-bottom: 10px;">
+                                    <img src="assets/images/<%=ad.getImage()%>" alt="quang-cao" />   
+                                </div> 
+                                <% }%>
+                            </div>                              
+
+
                         </div>
                         <jsp:include page="sidebar.jsp"></jsp:include>
                         </div>
                     </div>
                 </div>
             <jsp:include page="footer.jsp"></jsp:include>
+            <script src="js/datatables-simple-demo.js"></script>
         </div>
     </body>
 </html>

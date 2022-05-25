@@ -5,9 +5,14 @@
  */
 package crudadvertisement;
 
+import dao.PostDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +37,10 @@ public class CreateAdvertisement extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -46,14 +53,29 @@ public class CreateAdvertisement extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+        String image = request.getParameter("image");
+        String link = request.getParameter("link");
+        String from_date = request.getParameter("from_date");
+        Date from_date_ = Date.valueOf(from_date);
+        String to_date = request.getParameter("to_date");
+        Date to_date_ = Date.valueOf(to_date);
+        String update_date = request.getParameter("created_date");
+        Date update_date_ = Date.valueOf(update_date);
+        String status = request.getParameter("status");
+        Boolean Status = Boolean.parseBoolean(status);
+
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("acc");
         if (a != null) {
-            Long id = a.getUserId();
-            response.sendRedirect("CreateAdvertisement.jsp");
+            //CHÈN NẾU ĐĂNG NHẬP
+            PostDAO dao = new PostDAO();
+            dao.insertAdvertisement(image, link, from_date_, to_date_, update_date_, Status);
+            //request.setAttribute("mess", "Bạn có muốn đăng nhập không!");
+            response.sendRedirect("IndexAdvertisement.jsp");
         } else {
-            request.setAttribute("mess", "Bạn chưa đăng nhập để vào trang này!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            //day ve trang login.jsp
+            request.setAttribute("mess", "Email này đã tồn tại! Mời bạn nhập email khác!");
+            response.sendRedirect("Login.jsp");
         }
     }
 
@@ -69,7 +91,11 @@ public class CreateAdvertisement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CreateAdvertisement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -83,7 +109,11 @@ public class CreateAdvertisement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CreateAdvertisement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

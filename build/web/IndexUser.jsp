@@ -52,12 +52,12 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-<!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>-->
+            <!--            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>-->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -191,6 +191,7 @@
                         <h1 class="mt-4">Thông tin tài khoản</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Danh sách tài khoản</li>
+                            <li class="breadcrumb-item active"><a  href="CreateUser.jsp" class="btn btn-danger"><i class="fa fa-pen"></i> Tạo tài khoản mới</a></li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -253,7 +254,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Danh sách bài viết
+                                Danh sách tài khoản
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -265,7 +266,7 @@
                                             <th class="text-center" style="vertical-align: middle">Email</th>
                                             <th class="text-center" style="vertical-align: middle">Hash Password</th>              
                                             <th class="text-center" style="vertical-align: middle">Trạng thái</th>
-                                            <th class="text-center" style="vertical-align: middle">Là thành viên</th>
+                                            <th class="text-center" style="vertical-align: middle">Là thành viên VIP</th>
                                             <th class="text-center" style="vertical-align: middle">Là Admin</th>
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
@@ -278,7 +279,7 @@
                                             <th class="text-center" style="vertical-align: middle">Email</th>
                                             <th class="text-center" style="vertical-align: middle">Hash Password</th>                                          
                                             <th class="text-center" style="vertical-align: middle">Trạng thái</th>
-                                            <th class="text-center" style="vertical-align: middle">Là thành viên</th>
+                                            <th class="text-center" style="vertical-align: middle">Là thành viên VIP</th>
                                             <th class="text-center" style="vertical-align: middle">Là Admin</th>
                                             <th class="text-center" style="vertical-align: middle">Thao tác</th>
                                         </tr>
@@ -291,18 +292,155 @@
                                             <td class="text-center" style="vertical-align: middle;font-weight: bold"><%=p.getFullname() %></td>
                                             <td class="text-center" style="vertical-align: middle"><%=p.getEmail() %></td>
                                             <td class="text-center" style="vertical-align: middle"><%=p.getPassword() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getStatus() %> ...</td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getIsMember() %></td>
-                                            <td class="text-center" style="vertical-align: middle"><%=p.getIsAdmin() %></td>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getStatus() == true) {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: green; text-decoration: none;"><i class="fa fa-toggle-on"></i> Kích hoạt</a>
+                                                <% } else {%>
+                                                <a href="UpdateUser?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i> Khóa</a>
+                                                <%}%>
+                                            </td>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getIsMember() == true) {%>
+                                                <a href="UpdateUser_Member?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: purple; text-decoration: none;"><i class="fa fa-check"></i></a>
+                                                <% } else {%>
+                                                <a href="UpdateUser_Member?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-square"></i></a>
+                                                <%}%>
+                                            </td>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <% if (p.getIsAdmin() == true) {%>
+                                                <a href="UpdateUser_Admin?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: red; text-decoration: none;"><i class="fa fa-toggle-on"></i></a>
+                                                <% } else {%>
+                                                <a href="UpdateUser_Admin?user_id=<%=p.getUserId() %>" class="btn-sm text-white" style="background-color: #888; text-decoration: none;"><i class="fa fa-toggle-off"></i></a>
+                                                <%}%>
+                                            </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a  href="" class="btn-sm btn-warning"><i class="fa fa-pen"></i></a>
-                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                                                <a  href="" class="btn-sm btn-primary"><i class="fa fa-trash"></i></a>
+                                                <!--                                                <a  href="" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>-->
+                                                <a  class="btn-sm btn-primary" onclick="document.getElementById('id01').style.display = 'block';document.getElementById('xoa').href = 'DeleteUser?uid=<%=p.getUserId() %>';"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <% }%>
                                     </tbody>
                                 </table>
+
+                                <style>
+                                    /* Set a style for all buttons */
+                                    button {
+                                        background-color: #04AA6D;
+                                        color: white;
+                                        padding: 14px 20px;
+                                        margin: 8px 0;
+                                        border: none;
+                                        cursor: pointer;
+                                        width: 100%;
+                                        opacity: 0.9;
+                                    }
+
+                                    button:hover {
+                                        opacity:1;
+                                    }
+
+                                    /* Float cancel and delete buttons and add an equal width */
+                                    .cancelbtn, .deletebtn {
+                                        float: left;
+                                        width: 50%;
+                                    }
+
+                                    /* Add a color to the cancel button */
+                                    .cancelbtn {
+                                        background-color: #ccc;
+                                        color: black;
+                                    }
+
+                                    /* Add a color to the delete button */
+                                    .deletebtn {
+                                        background-color: #f44336;
+                                    }
+
+                                    /* Add padding and center-align text to the container */
+                                    .container {
+                                        padding: 16px;
+                                        text-align: center;
+                                    }
+
+                                    /* The Modal (background) */
+                                    .modal {
+                                        display: none; /* Hidden by default */
+                                        position: fixed; /* Stay in place */
+                                        z-index: 1; /* Sit on top */
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; /* Full width */
+                                        height: 100%; /* Full height */
+                                        overflow: auto; /* Enable scroll if needed */
+                                        background-color: rgba(0, 0, 0, 0.3);
+                                        padding-top: 50px;
+                                    }
+
+                                    /* Modal Content/Box */
+                                    .modal-content {
+                                        background-color: #fefefe;
+                                        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+                                        border: 1px solid #888;
+                                        width: 40%; /* Could be more or less, depending on screen size */
+                                    }
+                                    /* The Modal Close Button (x) */
+                                    .close {
+                                        position: absolute;
+                                        right: 35px;
+                                        top: 15px;
+                                        font-size: 40px;
+                                        font-weight: bold;
+                                        color: #f1f1f1;
+                                    }
+
+                                    .close:hover,
+                                    .close:focus {
+                                        color: #f44336;
+                                        cursor: pointer;
+                                    }
+
+                                    /* Clear floats */
+                                    .clearfix::after {
+                                        content: "";
+                                        clear: both;
+                                        display: table;
+                                    }
+
+                                    /* Change styles for cancel button and delete button on extra small screens */
+                                    @media screen and (max-width: 300px) {
+                                        .cancelbtn, .deletebtn {
+                                            width: 100%;
+                                        }
+                                    }
+                                </style>
+                                <!-- Form xóa -->
+                                <div id="id01" class="modal">
+                                    <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+                                    <form class="modal-content" action="/action_page.php">
+                                        <div class="container">
+                                            <h1>Xóa người dùng</h1>
+                                            <p>Bạn có chắc chắn muốn xóa người dùng này khỏi hệ thống?</p>
+
+                                            <div class="clearfix">
+                                                <a style="text-decoration: none;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn btn-lg"><i class="fa fa-times bold"></i> Cancel</a>
+                                                <a id="xoa" style="text-decoration: none;color:white;" type="button" onclick="document.getElementById('id01').style.display = 'none'" class="deletebtn btn-lg"><i class="fa fa-trash bold"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <script>
+// Get the modal
+                                    var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+                                    window.onclick = function (event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+                                        }
+                                    }
+                                </script>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,346 @@
+header {
+    @include flexCenter;
+    @include positionFixed;
+    left: 280px;
+    backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.72);
+    justify-content: space-between;
+    padding: 0px 40px;
+    height: 88px;
+
+    @include mobile {
+        left: 0;
+        padding: 0 15px;
+    }
+
+    @include laptop {
+        left: 0;
+    }
+
+    .search-wrapper {
+        &__icon {
+            @include flexCenter;
+            @include w-h-40;
+            border-radius: 50%;
+            cursor: pointer;
+            justify-content: center;
+
+            &:hover {
+                background: $backgroundHoverColor;
+            }
+        }
+
+        @include mobile {
+            @include flexCenter;
+        }
+
+        @include laptop {
+            @include flexCenter;
+        }
+
+        .menu-wrapper__mobile {
+            margin-right: 10px;
+            @include flexCenter;
+            @include w-h-40;
+            border-radius: 50%;
+            cursor: pointer;
+            justify-content: center;
+            display: none;
+
+            @include mobile {
+                display: flex;
+            }
+
+            @include laptop {
+                display: flex;
+            }
+
+            &:hover {
+                background: $backgroundHoverColor;
+            }
+        }
+
+        .toolbar-wrapper {
+            @include positionAbsolute;
+            @include flexCenter;
+            background: $backgroundColor;
+            justify-content: space-between;
+            height: 88px;
+            padding: 0px 40px;
+            transform: translateY(-100px);
+            transition: all 0.4s ease;
+            visibility: hidden;
+            opacity: 0;
+
+            @include mobile {
+                padding: 0px 25px;
+            }
+
+            input {
+                background: $backgroundColor;
+                border: none;
+                width: 100%;
+                outline: none;
+                padding: 0 10px;
+            }
+
+            &.show {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .user-wrapper {
+        @include flexCenter;
+
+        &__darkmode {
+            background-image: url(../img/dark.svg);
+            background-repeat: no-repeat;
+            width: 30px;
+            height: 30px;
+        }
+
+        &__notification {
+            position: relative;
+            margin-right: 16px;
+            margin-left: 16px;
+            margin-top: 2px;
+
+            &:hover .user-wrapper__notification--menu {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(-40px);
+            }
+
+            &:hover .fas.fa-bell {
+                color: $textColorActive;
+            }
+
+            button {
+                @include w-h-40;
+                border-radius: 50%;
+                border: none;
+                background: transparent;
+                outline: none;
+
+                i {
+                    color: $textColor;
+                    font-size: 1.2rem;
+                }
+
+                &:hover {
+                    background: $backgroundHoverColor;
+                }
+            }
+
+            &--menu {
+                position: absolute;
+                top: 100px;
+                right: 0;
+                background: $backgroundColor;
+                border-radius: 8px;
+                width: 360px;
+                transition: all 0.4s ease;
+                visibility: hidden;
+                opacity: 0;
+                z-index: 1200;
+
+                @include mobile {
+                    width: 280px;
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -40px;
+                    right: 3px;
+                    border-width: 28px 16px;
+                    border-style: solid;
+                    border-color: transparent transparent $backgroundColor
+                        transparent;
+                }
+
+                .header {
+                    @include flexCenter;
+                    border-bottom: 1px solid $borderColor;
+                    padding: 12px 20px;
+                    justify-content: space-between;
+
+                    span {
+                        font-weight: weight(medium);
+                    }
+
+                    p {
+                        color: $textColor;
+                        margin: 0;
+                        font-size: 0.9rem;
+                    }
+
+                    button {
+                        @include flexCenter;
+                        justify-content: center;
+                        z-index: 999;
+
+                        i {
+                            color: $textColorActive;
+                        }
+                    }
+                }
+
+                .content {
+                    &-text {
+                        color: $textColor;
+                        font-size: 0.8rem;
+                        font-weight: weight(bold);
+                        padding: 12px 20px;
+                        text-transform: uppercase;
+                        letter-spacing: 1.1px;
+                    }
+
+                    &-noti {
+                        a {
+                            @include flexCenter;
+                            background: $backgroundPrimaryColor;
+                            padding: 8px 20px;
+                            margin: 1px 0px 0px;
+
+                            img {
+                                @include w-h-40;
+                                border-radius: 50%;
+                                margin-right: 16px;
+                            }
+
+                            &:hover {
+                                background: $backgroundHoverColor;
+                            }
+                        }
+
+                        &__text {
+                            p {
+                                span {
+                                    color: $textColor;
+                                    text-transform: unset;
+                                    font-size: 0.9rem;
+                                    font-weight: weight(regular);
+                                }
+                            }
+
+                            span {
+                                color: $textColor;
+                                font-size: 0.8rem;
+                                font-weight: weight(regular);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__profile {
+            position: relative;
+
+            &:hover .user-wrapper__profile--menu {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(-40px);
+            }
+
+            &--avatar {
+                img {
+                    @include w-h-40;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            }
+
+            &--menu {
+                position: absolute;
+                top: 100px;
+                right: 0;
+                background: $backgroundColor;
+                border-radius: 8px;
+                width: 260px;
+                transition: all 0.4s ease;
+                visibility: hidden;
+                opacity: 0;
+                z-index: 1200;
+
+                @include mobile {
+                    width: 220px;
+                }
+
+                &:hover {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                .name {
+                    width: 100%;
+                    border-bottom: 1px solid $borderColor;
+                    display: inline-grid;
+                    padding: 12px 20px;
+
+                    p {
+                        color: $textColor;
+                        margin: 0;
+                        font-size: 0.9rem;
+                    }
+                }
+
+                .profile,
+                .settings {
+                    @include flexCenter;
+                    color: $primaryColor;
+                    width: 100%;
+                    padding: 8px 20px;
+                    min-height: 48px;
+                    font-size: 0.9rem;
+
+                    i {
+                        font-size: 1.2rem;
+                    }
+
+                    span {
+                        margin-left: 16px;
+                    }
+
+                    &:hover {
+                        background: $backgroundPrimaryColor;
+                    }
+                }
+
+                .logout {
+                    @include flexCenter;
+                    border: 1px solid $borderColor;
+                    border-radius: 8px;
+                    margin: 12px 16px 16px;
+                    justify-content: center;
+                    color: $primaryColor;
+
+                    span {
+                        padding: 6px 10px;
+                        font-size: 0.9rem;
+                        font-weight: weight(bold);
+                    }
+
+                    &:hover {
+                        background: $backgroundPrimaryColor;
+                    }
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -40px;
+                    right: 3px;
+                    border-width: 28px 16px;
+                    border-style: solid;
+                    border-color: transparent transparent $backgroundColor
+                        transparent;
+                }
+            }
+        }
+    }
+}

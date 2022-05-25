@@ -36,10 +36,10 @@ public class PostDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    //ok
+    //lấy tất cả danh sách Comment
     public List<PostComment> getAllComment() {
         List<PostComment> list = new ArrayList<>();
-        String query = "SELECT * FROM `post_comment`";
+        String query = "select * from post_comment";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -56,15 +56,41 @@ public class PostDAO {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10)
-                        
                 ));
             }
         } catch (Exception e) {
         }
         return list;
     }
-    
+
     //ok
+    public List<PostComment> getAllComment2() {
+        List<PostComment> list = new ArrayList<>();
+        String query = "select * from post_comment";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S D B D S S S S L 
+                list.add(new PostComment(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getBoolean(4),
+                        rs.getDate(5),
+                        rs.getString(6),
+                        rs.getLong(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    //lấy ra tất cả comment theo mã bài viết
     public List<PostComment> getCommentByPostID(Long cid) {
         List<PostComment> list = new ArrayList<>();
         String query = "select * from post_comment\n"
@@ -92,9 +118,33 @@ public class PostDAO {
         }
         return list;
     }
-    
-    //ok
+
+    //lấy ra tất ra danh sách quảng cáo có điều kiện trạng thái true và lấy ra top 4 ngẫu nhiên
     public List<Advertisement> getAllAdvertisement() {
+        List<Advertisement> list = new ArrayList<>();
+        String query = "select * from advertisement where status = true ORDER BY RAND() LIMIT 4";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S D D D B
+                list.add(new Advertisement(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getDate(5),
+                        rs.getDate(6),
+                        rs.getBoolean(7)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    //lấy ra tất ra danh sách quảng cáo
+    public List<Advertisement> getAllAdvertisement2() {
         List<Advertisement> list = new ArrayList<>();
         String query = "select * from advertisement";
         try {
@@ -109,7 +159,7 @@ public class PostDAO {
                         rs.getDate(4),
                         rs.getDate(5),
                         rs.getDate(6),
-                        rs.getBoolean(7)             
+                        rs.getBoolean(7)
                 ));
             }
         } catch (Exception e) {
@@ -117,6 +167,31 @@ public class PostDAO {
         return list;
     }
     
+    //ok
+    public List<Advertisement> getAdvertisementById(Long ad_id) {
+        List<Advertisement> list = new ArrayList<>();
+        String query = "select * from advertisement where status = true and banner_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, ad_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S D D D B
+                list.add(new Advertisement(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getDate(5),
+                        rs.getDate(6),
+                        rs.getBoolean(7)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
     //ok
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
@@ -142,9 +217,7 @@ public class PostDAO {
         }
         return list;
     }
-    
 
-    
     //ok
     public List<User> getAllUser2() {
         List<User> list = new ArrayList<>();
@@ -167,7 +240,39 @@ public class PostDAO {
                             rs.getString(9),
                             rs.getBoolean(10),
                             rs.getBoolean(11),
-                            rs.getBoolean(12)                       
+                            rs.getBoolean(12)
+                    ));
+                }
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    //ok
+    public List<User> getUserById(Long uid) {
+        List<User> list = new ArrayList<>();
+        String query = "select * from user where user_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, uid);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {// L S D B S S S S S B B B
+                    list.add(new User(
+                            rs.getLong(1),
+                            rs.getString(2),
+                            rs.getDate(3),
+                            rs.getBoolean(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getString(8),
+                            rs.getString(9),
+                            rs.getBoolean(10),
+                            rs.getBoolean(11),
+                            rs.getBoolean(12)
                     ));
                 }
             }
@@ -179,7 +284,7 @@ public class PostDAO {
     //ok
     public List<Post> getAllPost() {
         List<Post> list = new ArrayList<>();
-        String query = "select * from post";
+        String query = "select * from post where published = true";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -312,12 +417,11 @@ public class PostDAO {
     //ok
     public List<Post> searchPostByName(String txtSearch) {
         List<Post> list = new ArrayList<>();
-        String query = "select * from product\n"
-                + "where post_title like ?";
+        String query = "select * from post WHERE post_title like '%" + txtSearch + "%'";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + txtSearch + "%");
+            //ps.setString(1, "%" + txtSearch + "%");
             rs = ps.executeQuery();
             while (rs.next()) {// L S S S D B D S
                 list.add(new Post(
@@ -325,10 +429,10 @@ public class PostDAO {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getDate(5),
-                        rs.getBoolean(6),
-                        rs.getDate(7),
-                        rs.getString(8)
+                        rs.getDate(6),
+                        rs.getBoolean(7),
+                        rs.getDate(8),
+                        rs.getString(9)
                 ));
             }
         } catch (Exception e) {
@@ -355,6 +459,61 @@ public class PostDAO {
 //                        rs.getBoolean(6),
 //                        rs.getDate(7),
 //                        rs.getString(8));
+                list.add(new Post(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDate(6),
+                        rs.getBoolean(7),
+                        rs.getDate(8),
+                        rs.getString(9)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    //ok
+    public List<Post> getPostById(Long id) {
+        List<Post> list = new ArrayList<>();
+        String query = "select * from post where post_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S S S D B D S
+                list.add(new Post(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDate(6),
+                        rs.getBoolean(7),
+                        rs.getDate(8),
+                        rs.getString(9),
+                        rs.getLong(10),
+                        rs.getInt(11),
+                        rs.getLong(12)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    //ok
+    public List<Post> getPostBySLUGID(String slugid) {
+        List<Post> list = new ArrayList<>();
+        String query = "select * from post where concat(slug,'-',post_id) = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, slugid);
+            rs = ps.executeQuery();
+            while (rs.next()) {// L S S S D B D S
                 list.add(new Post(
                         rs.getLong(1),
                         rs.getString(2),
@@ -454,6 +613,26 @@ public class PostDAO {
     }
 
     //ok
+    public List<Tag> getTagById(Long id) {
+        List<Tag> list = new ArrayList<>();
+        String query = "select * from tag where tag_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Tag(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getLong(3)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    //ok
     public List<Tag> getAllTag() {
         List<Tag> list = new ArrayList<>();
         String query = "select * from tag";
@@ -497,7 +676,7 @@ public class PostDAO {
         String passhash = convertHashToString(pass);
         String query = "select * from user\n"
                 + "where email = ?\n"
-                + "and password = ? and isAdmin = '1'";
+                + "and password = ? and isAdmin = '1' and status = '1'";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -574,13 +753,12 @@ public class PostDAO {
     }
 
     //START CRUD Post
-    public void deletePost(String post_id) {
-        String query = "delete from product\n"
-                + "where post_id = ?";
+    public void deletePost(Long post_id) {
+        String query = "DELETE FROM `post` WHERE `post`.`post_id` = " + post_id.intValue();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, post_id);
+            //ps.setLong(1, post_id);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -607,7 +785,7 @@ public class PostDAO {
         }
     }
 
-    public void editPost(Long postId, String postTitle, String slug, String thumbnail, Date updatedAt, boolean published, Date publishedAt, String content, Long user_id, int viewcount, Long category_id) {
+    public void editPost(Long postId, String postTitle, String slug, String thumbnail, String summamry, Date updatedAt, boolean published, Date publishedAt, String content, Long user_id, int viewcount, Long category_id) {
         String query = "UPDATE `post` SET `post_title`=?,`slug`=?,`thumbnail`=?,`summary`=?,`updatedAt`=?,`published`=?,`publishedAt`=?,`content`=?,`user_id`=?,`viewcount`=?,`category_id`=? WHERE post_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
@@ -615,14 +793,36 @@ public class PostDAO {
             ps.setString(1, postTitle);
             ps.setString(2, slug);
             ps.setString(3, thumbnail);
-            ps.setDate(4,  updatedAt);
-            ps.setBoolean(5, published);
-            ps.setDate(6, publishedAt);
-            ps.setLong(7, user_id);
-            ps.setInt(8, viewcount);
-            ps.setLong(9, category_id);
-            ps.setLong(10, user_id);
-            ps.setLong(11, postId);
+            ps.setString(4, thumbnail);
+            ps.setDate(5, updatedAt);
+            ps.setBoolean(6, published);
+            ps.setDate(7, publishedAt);
+            ps.setLong(8, user_id);
+            ps.setInt(9, viewcount);
+            ps.setLong(10, category_id);
+            ps.setLong(11, user_id);
+            ps.setLong(12, postId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    //thay đổi trạng thái xuất bản
+    public void updatePost(Long postId) {
+        String query = "UPDATE `post` SET `published`= ?,`publishedAt`= CURDATE() WHERE post_id = ?";
+
+        PostDAO dao = new PostDAO();
+        Post post = dao.getPostByID(postId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (post.getPublished() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, postId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, postId);
+            }
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -630,18 +830,20 @@ public class PostDAO {
 
     //END CRUD Post
     // START CRUD Category
+    
+    //hàm xóa 1 chuyên mục bài viết theo ID Chuyên mục
     public void deleteCategory(Long category_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "DELETE FROM 'category` WHERE `category`.`category_id` = " + category_id.intValue();
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
-            ps.setLong(1, category_id);
+            //ps.setLong(1, category_id);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
+    //hàm thêm mới 1 chuyên mục bài viết
     public void insertCategory(String cat_title, String slug, String icon) {
         String query = "INSERT INTO `category`(`cat_title`, `slug`, `icon`) VALUES (?,?,?)";
         try {
@@ -655,6 +857,7 @@ public class PostDAO {
         }
     }
 
+    //hàm sửa chuyên mục chủ đề bài viết
     public void editCategory(Long categoryId, String catTitle, String slug, String icon) {
         String query = "UPDATE `category` SET `cat_title`= ?,`slug`= ?,`icon`= ? WHERE category_id = ?";
         try {
@@ -672,8 +875,8 @@ public class PostDAO {
 
     // START CRUD Tag
     public void deleteTag(Long tag_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "delete from tag\n"
+                + "where tag_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -711,8 +914,8 @@ public class PostDAO {
 
     // START CRUD PostComment
     public void deleteComment(Long post_comment_id) {
-        String query = "delete from category\n"
-                + "where post_id = ?";
+        String query = "delete from post_comment\n"
+                + "where post_comment_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
@@ -721,11 +924,93 @@ public class PostDAO {
         } catch (Exception e) {
         }
     }
+    
+    public void insertComment(String comment_title, Date updatedAt, Boolean published, Date publishedAt, String content, Long post_id, String comment_email, String comment_website, String comment_fullname) throws NoSuchAlgorithmException {
+        
+        String query = "INSERT INTO `post_comment`(`comment_title`, `updatedAt`, `published`, `publishedAt`, `content`, `post_id`, `comment_email`, `comment_website`, `comment_fullname`) VALUES (?,?,?,?,?,?,?,?,?)";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, comment_title);
+            ps.setDate(2, updatedAt);
+            ps.setBoolean(3, published);
+            ps.setDate(4, publishedAt);
+            ps.setString(5, content);
+            ps.setLong(6, post_id);
+            ps.setString(7, comment_email);
+            ps.setString(8, comment_website);
+            ps.setString(9, comment_fullname);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void insertAdvertisement(String image, String link, Date from_date, Date to_date, Date created_date, Boolean status) throws NoSuchAlgorithmException {
+        
+        String query = "INSERT INTO `advertisement`(`image`, `link`, `from_date`, `to_date`, `created_date`, `status`) VALUES (?,?,?,?,?,?)";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, image);
+            ps.setString(2, link);
+            ps.setDate(3, from_date);
+            ps.setDate(4, to_date);
+            ps.setDate(5, created_date);
+            ps.setBoolean(6, status);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     // END CRUD PostComment
     // START CRUD User
+    public void insertUser(String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
+        String passhash = convertHashToString(password);
+        String query = "INSERT INTO `user`(`fullname`, `birthday`, `gender`, `address`, `email`, `mobile`, `password`, `avatar`, `status`, `isMember`, `isAdmin`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fullname);
+            ps.setDate(2, birthday);
+            ps.setBoolean(3, gender);
+            ps.setString(4, address);
+            ps.setString(5, email);
+            ps.setString(6, mobile);
+            ps.setString(7, passhash);
+            ps.setString(8, avatar);
+            ps.setBoolean(9, status);
+            ps.setBoolean(10, isMember);
+            ps.setBoolean(11, isAdmin);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void editUser(Long userId, String fullname, Date birthday, Boolean gender, String address, String email, String mobile, String password, String avatar, boolean status, boolean isMember, boolean isAdmin) throws NoSuchAlgorithmException {
+        String passhash = convertHashToString(password);
+        String query = "UPDATE `user` SET `fullname`=?,`birthday`=?,`gender`=?,`address`=?,`email`=?,`mobile`=?,`password`=?,`avatar`=?,`status`=?,`isMember`=?,`isAdmin`=? WHERE user_id = ?";
+        PostDAO dao = new PostDAO();
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            ps.setString(1, fullname);
+            ps.setDate(2, birthday);
+            ps.setBoolean(3, gender);
+            ps.setString(4, address);
+            ps.setString(5, email);
+            ps.setString(6, mobile);
+            ps.setString(7, passhash);
+            ps.setString(8, avatar);
+            ps.setBoolean(9, status);
+            ps.setBoolean(10, isMember);
+            ps.setBoolean(11, isAdmin);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
     public void deleteUser(Long user_id) {
-        String query = "delete from category\n"
+        String query = "delete from user\n"
                 + "where post_id = ?";
         try {
             conn = DBContext.getConnection();//mo ket noi voi sql
@@ -736,9 +1021,132 @@ public class PostDAO {
         }
     }
 
+    //thay đổi trạng thái xuất bản
+    public void updateUser(Long userId) {
+        String query = "UPDATE `user` SET `status`= ? WHERE user_id = ?";
+
+        PostDAO dao = new PostDAO();
+        User user = dao.getUserById(userId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (user.getStatus() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, userId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, userId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    //thay đổi trạng thái xuất bản
+    public void updateUser_Admin(Long userId) {
+        String query = "UPDATE `user` SET `isAdmin`= ? WHERE user_id = ?";
+
+        PostDAO dao = new PostDAO();
+        User user = dao.getUserById(userId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (user.getIsAdmin() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, userId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, userId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    //thay đổi trạng thái xuất bản
+    public void updateUser_Member(Long userId) {
+        String query = "UPDATE `user` SET `isMember`= ? WHERE user_id = ?";
+
+        PostDAO dao = new PostDAO();
+        User user = dao.getUserById(userId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (user.getIsMember() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, userId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, userId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    //1 số hàm khác
+    
+     public void updateAdvertisement(Long adId) {
+        String query = "UPDATE `advertisement` SET `status`= ? WHERE banner_id = ?";
+
+        PostDAO dao = new PostDAO();
+        Advertisement ad = dao.getAdvertisementById(adId).get(0);
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query); // S S S D B D S I I I
+            if (ad.getStatus() == true) {
+                ps.setBoolean(1, false);
+                ps.setLong(2, adId);
+            } else {
+                ps.setBoolean(1, true);
+                ps.setLong(2, adId);
+            }
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void deleteAdvertisement(Long banner_id) {
+        String query = "delete from advertisement\n"
+                + "where banner_id = ?";
+        try {
+            conn = DBContext.getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setLong(1, banner_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    
+    
     // END CRUD User
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
+        System.out.println(convertHashToString("khoa69"));
+        User a;
+        a = dao.login("khoaruoi69@gmail.com", "khoa69");
+        if (a == null) {
+        } else {
+            System.out.println(a.getFullname());
+        }
+        
+//        List<User> user = dao.getUserById(2L);
+//        System.out.println(user.get(0).getEmail());
+//        List<Advertisement> listCC = dao.getAllAdvertisement();
+//        for(Advertisement c: listCC){
+//            System.out.println(c.getImage());
+//        }
+//        String txtSearch = "Windows";
+//        List<Post> list = dao.searchPostByName(txtSearch);
+//        if (list != null) {
+//            for (Post p : list) {
+//                System.out.println(p.getPostTitle());
+//            }
+//        }
+//        String pid = "36";
+//        dao.deletePost(Long.parseLong(pid));
+//        System.out.println(dao.getPostByID(Long.parseLong(pid)).get(0).getPostTitle());
 //        List<Post> listCC = dao.getAllPost();
 //        for(Post c: listCC){
 //            System.out.println(c.getPostTitle());
@@ -761,9 +1169,9 @@ public class PostDAO {
 //        }
         //dao.insertPost("Win 11", "win-11", "win-11.jpg","Đang viết", Date.from(Instant.now()), true, Date.from(Instant.now()), "Test Demo", 2L, 0, 6L);
         //System.out.println(dao.getPostByID(32L).get(0).getPostTitle());
-        for(PostComment item : dao.getAllComment()){
-            System.out.println(item.getCommentTitle());
-        }
+//        for(PostComment item : dao.getAllComment()){
+//            System.out.println(item.getCommentTitle());
+//        }
 //        System.out.println(Boolean.parseBoolean("True"));
     }
 }
