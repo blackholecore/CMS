@@ -204,24 +204,25 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Tạo chủ đề mới</li>
                         </ol>
-
+                        <!--enctype="multipart/form-data"-->
                         <form action="EditCategory" method="POST" class="row g-3">
                             <div class="col-md-12">
                                 <input type="hidden" name="category_id" for="inputEmail4" class="form-label" value="<%=cat.get(0).getCategoryId()%>" >
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Tên chủ đề</label>
-                                <input type="text" class="form-control" name="category_title" value="<%=p.getCatTitle() %>">
+                                <input type="text" class="form-control" name="category_title" value="<%=p.getCatTitle()%>">
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <label for="inputPassword4" class="form-label">Slug</label>
-                                <input type="text" class="form-control" name="slug" value="<%=p.getSlug() %>">
+                                <input type="text" class="form-control" name="slug" value="<%=p.getSlug()%>">
                             </div>
-                            
+
                             <div class="col-md-6">
+                                <p class="text-danger">${message}</p>
                                 <label for="inputAddress" class="form-label">Hình ảnh</label>
-                                <input type="file" class="form-control" name="icon" value="<%=p.getIcon() %>">
+                                <input type="file" class="form-control" name="icon" value="<%=p.getIcon()%>">
                             </div>
 
                             <div class="col-md-12">
@@ -245,6 +246,21 @@
                 </footer>
             </div>
         </div>
+        <script>
+            import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+            ClassicEditor
+                    .create(document.querySelector('#editor'), {
+                    plugins: [ CKFinder, ... ],
+                            // Enable the "Insert image" button in the toolbar.
+                            toolbar: [ 'uploadImage', ... ],
+                            ckfinder: {
+                            // Upload the images to the server using the CKFinder QuickUpload command.
+                            uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+                            }
+                    })
+                    .then(...)
+                    .catch(...);
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -252,6 +268,7 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
     </body>
 </html>
 

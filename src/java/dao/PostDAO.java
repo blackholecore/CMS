@@ -830,6 +830,8 @@ public class PostDAO {
 
     //END CRUD Post
     // START CRUD Category
+    
+    //hàm xóa 1 chuyên mục bài viết theo ID Chuyên mục
     public void deleteCategory(Long category_id) {
         String query = "DELETE FROM 'category` WHERE `category`.`category_id` = " + category_id.intValue();
         try {
@@ -841,6 +843,7 @@ public class PostDAO {
         }
     }
 
+    //hàm thêm mới 1 chuyên mục bài viết
     public void insertCategory(String cat_title, String slug, String icon) {
         String query = "INSERT INTO `category`(`cat_title`, `slug`, `icon`) VALUES (?,?,?)";
         try {
@@ -854,6 +857,7 @@ public class PostDAO {
         }
     }
 
+    //hàm sửa chuyên mục chủ đề bài viết
     public void editCategory(Long categoryId, String catTitle, String slug, String icon) {
         String query = "UPDATE `category` SET `cat_title`= ?,`slug`= ?,`icon`= ? WHERE category_id = ?";
         try {

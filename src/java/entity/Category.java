@@ -48,7 +48,7 @@ public class Category implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 50)
     private String slug;
-    @Column(length = 70)
+    @Column(length = 255)
     private String icon;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private Collection<Post> postCollection;

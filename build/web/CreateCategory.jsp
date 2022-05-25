@@ -204,7 +204,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Hình ảnh</label>
-                                <input type="file" class="form-control" name="icon">
+                                <input type="file" class="form-control" name="icon" placeholder="Chọn ảnh">
                             </div>
                             
                             <div class="col-12">
