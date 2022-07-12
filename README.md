@@ -1,4 +1,4 @@
-# CMS
+# CMS [![CodeQL](https://github.com/huynhit24/CMS/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/huynhit24/CMS/actions/workflows/codeql-analysis.yml)
 Sử dụng Java JSP Servlet.
 # Database
 MySQL
